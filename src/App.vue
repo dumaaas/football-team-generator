@@ -673,6 +673,7 @@ export default {
           }
         }
       }
+      console.log(closestPair, 'hej mala malena')
       return closestPair;
     },
     izracunajKvote(snagaEkipe1, snagaEkipe2) {
