@@ -13,7 +13,14 @@
       </div>
       <button @click="generateTeams()">Generate teams</button>
     </div>
-    <FieldModal v-if="showField" :teamOne="teamOne" :teamTwo="teamTwo" :showTeams="showTeams" :players="players"/>
+    <FieldModal
+      v-if="showField"
+      :teamOne="teamOne"
+      :teamTwo="teamTwo"
+      :showTeams="showTeams"
+      :players="players"
+      :odds="odds"
+    />
     <div class="overlay" v-if="showField"></div>
   </div>
 </template>
@@ -31,6 +38,7 @@ export default {
     return {
       showField: false,
       showTeams: false,
+      odds: null,
       players: [
         {
           id: 1,
@@ -356,7 +364,7 @@ export default {
       this.showTeams = true;
       setTimeout(() => {
         this.showTeams = false;
-      }, 3000)
+      }, 3000);
       const goalkeepers = this.players.filter((obj) => {
         return obj.position === "GK" && obj.picked == true;
       });
@@ -624,6 +632,15 @@ export default {
         });
 
         console.log(teamOneSum, "prviTimSum pa drugiTimSum", teamTwoSum);
+ 
+        var [oddOne, oddTwo, oddDraw] = this.izracunajKvote(teamOneSum, teamTwoSum)
+
+        this.odds = {
+          oddOne: oddOne,
+          oddTwo: oddTwo, 
+          oddDraw: oddDraw
+        }
+
       }
     },
     findClosestPair(firstTeam, secondTeam) {
@@ -657,6 +674,23 @@ export default {
         }
       }
       return closestPair;
+    },
+    izracunajKvote(snagaEkipe1, snagaEkipe2) {
+      console.log("hej ti", typeof snagaEkipe1);
+      var implicitnaKvota1 = 1 / (snagaEkipe1 / (snagaEkipe1 + snagaEkipe2));
+      var implicitnaKvota2 = 1 / (snagaEkipe2 / (snagaEkipe1 + snagaEkipe2));
+      var implicitnaKvotaN = 1 - (implicitnaKvota1 + implicitnaKvota2);
+      // console.log('hej jajaja',  implicitnaKvota1)
+      // var kvota1 = parseFloat((1 / implicitnaKvota1).toFixed(2));
+      // var kvota2 = parseFloat((1 / implicitnaKvota2).toFixed(2));
+      // var kvotaN = parseFloat((1 / implicitnaKvotaN).toFixed(2));
+      // console.log('hej jajaja 2',  kvota1)
+
+      return [
+        implicitnaKvota1.toFixed(2),
+        implicitnaKvota2.toFixed(2),
+        Math.abs(implicitnaKvotaN).toFixed(2),
+      ];
     },
   },
 };

@@ -70,6 +70,9 @@
         </p>
       </div>
     </div>
+    <div v-if="!showTeams" class="odds">
+      {{ odds.oddOne }} pa {{ odds.oddDraw }} pa {{ odds.oddTwo }}
+    </div>
   </div>
 </template>
 
@@ -80,6 +83,7 @@ export default {
     teamTwo: Array,
     showTeams: Boolean,
     players: Array,
+    odds: Object,
   },
 };
 </script>
@@ -114,6 +118,18 @@ export default {
   left: 134px;
   text-transform: uppercase;
   top: 25px;
+}
+
+.odds {
+  bottom: -39px;
+  position: absolute;
+  background: red;
+  width: 100%;
+  color: white;
+  opacity: 0;
+  animation: fadeInField linear 0.9s forwards;
+    animation-delay: 1.8s;
+
 }
 
 .field-outline {
