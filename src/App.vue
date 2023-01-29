@@ -13,7 +13,7 @@
       </div>
       <button @click="generateTeams()">Generate teams</button>
     </div>
-    <FieldModal v-if="showField" :teamOne="teamOne" :teamTwo="teamTwo" />
+    <FieldModal v-if="showField" :teamOne="teamOne" :teamTwo="teamTwo" :showTeams="showTeams" :players="players"/>
     <div class="overlay" v-if="showField"></div>
   </div>
 </template>
@@ -30,6 +30,7 @@ export default {
   data() {
     return {
       showField: false,
+      showTeams: false,
       players: [
         {
           id: 1,
@@ -352,6 +353,10 @@ export default {
     },
     generateTeams() {
       this.showField = true;
+      this.showTeams = true;
+      setTimeout(() => {
+        this.showTeams = false;
+      }, 3000)
       const goalkeepers = this.players.filter((obj) => {
         return obj.position === "GK" && obj.picked == true;
       });
