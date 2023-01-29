@@ -10,7 +10,7 @@
       <div class="center-circle"></div>
       <div class="center-point"></div>
     </div>
-    <div v-if="showTeams" class="calculation">
+    <div class="calculation" :class="!showTeams ? 'calculation-out' : ''">
       <h3>Calculating...</h3>
       <img
         class="calculation-img"
@@ -41,7 +41,7 @@
             player.strength.defensive +
             player.strength.physics
           }} -->
-          {{player.avatar}}
+          {{ player.avatar }}
         </p>
       </div>
     </div>
@@ -66,7 +66,7 @@
             player.strength.defensive +
             player.strength.physics
           }} -->
-          {{player.avatar}}
+          {{ player.avatar }}
         </p>
       </div>
     </div>
@@ -104,6 +104,10 @@ export default {
   position: relative;
 }
 
+.calculation-out {
+  animation: fadeCalculation linear 0.9s forwards;
+}
+
 .calculation h3 {
   color: white;
   position: absolute;
@@ -120,6 +124,18 @@ export default {
   width: 97%;
   height: 548px;
   width: 358px;
+  animation: fadeInField linear 0.9s forwards;
+  opacity: 0;
+  animation-delay: 3.9s;
+}
+
+@keyframes fadeInField {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .sixten-first {
@@ -203,8 +219,18 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70px;
-
+  opacity: 0;
   animation: fadeInTop linear 0.9s forwards;
+  animation-delay: 0.9s;
+}
+
+@keyframes fadeCalculation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes fadeInTop {
@@ -454,7 +480,9 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70px;
+  opacity: 0;
   animation: fadeInBottom linear 0.9s forwards;
+  animation-delay: 0.9s;
 }
 
 .player-j-1 {
