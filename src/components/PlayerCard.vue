@@ -47,28 +47,29 @@
             <div class="player-features">
               <div class="player-features-col">
                 <span>
-                  <div class="player-feature-value">97</div>
+                  <div class="player-feature-value">{{player.strength.pace}}</div>
                   <div class="player-feature-title">PAC</div></span
                 ><span>
-                  <div class="player-feature-value">95</div>
+                  <div class="player-feature-value">{{player.strength.shoot}}</div>
                   <div class="player-feature-title">SHO</div></span
                 ><span>
-                  <div class="player-feature-value">94</div>
+                  <div class="player-feature-value">{{player.strength.pass}}</div>
                   <div class="player-feature-title">PAS</div></span
                 >
               </div>
               <div class="player-features-col">
                 <span>
-                  <div class="player-feature-value">99</div>
+                  <div class="player-feature-value">{{player.strength.dribling}}</div>
                   <div class="player-feature-title">DRI</div></span
                 ><span>
-                  <div class="player-feature-value">35</div>
+                  <div class="player-feature-value">{{player.strength.defensive}}</div>
                   <div class="player-feature-title">DEF</div></span
                 ><span>
-                  <div class="player-feature-value">68</div>
+                  <div class="player-feature-value">{{player.strength.physics}}</div>
                   <div class="player-feature-title">PHY</div></span
                 >
               </div>
+            
             </div>
           </div>
         </div>

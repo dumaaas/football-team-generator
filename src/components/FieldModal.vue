@@ -12,7 +12,16 @@
         ]"
       >
         <img :src="require(`../assets/${player.avatar}.png`)" />
-        <p>{{ player.avatar }}</p>
+        <p>
+          {{
+            player.strength.pace +
+            player.strength.shoot +
+            player.strength.pass +
+            player.strength.dribling +
+            player.strength.defensive +
+            player.strength.physics
+          }}
+        </p>
       </div>
     </div>
     <div class="team-two">
@@ -27,7 +36,16 @@
         ]"
       >
         <img :src="require(`../assets/${player.avatar}.png`)" />
-        <p>{{ player.avatar }}</p>
+        <p>
+          {{
+            player.strength.pace +
+            player.strength.shoot +
+            player.strength.pass +
+            player.strength.dribling +
+            player.strength.defensive +
+            player.strength.physics
+          }}
+        </p>
       </div>
     </div>
   </div>
@@ -179,10 +197,10 @@ export default {
   font-size: 14px;
   text-transform: uppercase;
   font-weight: 500;
-background: #17191F;
+  background: #17191f;
   width: auto;
   padding: 2px 6px;
-  border: 1px solid #000;
+  border: 1px solid #0575e6;
   color: white;
 }
 </style>
