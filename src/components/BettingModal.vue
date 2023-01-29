@@ -10,12 +10,12 @@
     <div class="bet-slip">
       <div class="bet-slip-left">
         <span> sat, 29.01.2023. 18:00h </span>
-        <h5>Team 1 - Team 2</h5>
+        <h5>Team Yellow - Team Blue</h5>
         <p>Correct result</p>
       </div>
       <div class="bet-slip-right">
-        <p>1</p>
-        <span> 2.25 </span>
+        <p>{{fix}}</p>
+        <span> {{odd}} </span>
       </div>
     </div>
 
@@ -25,20 +25,20 @@
           <p>GAMES <span>1</span></p>
         </div>
         <div>
-          <p>ODD <span>2.25</span></p>
+          <p>ODD <span>{{odd}}</span></p>
         </div>
       </div>
       <div class="winning-slip-second">
         <p>Stake</p>
-        <input type="number" placeholder="Enter your stake" />
+        <input type="number" placeholder="Enter your stake" v-model="stake"/>
       </div>
       <div class="winning-slip-third">
         <p>Total stake</p>
-        <span>25 €</span>
+        <span>{{stake}} €</span>
       </div>
       <div class="winning-slip-fourth">
         <p>Potentional payout</p>
-        <span>300 €</span>
+        <span>{{(stake * odd).toFixed(2)}} €</span>
       </div>
     </div>
 
@@ -50,12 +50,19 @@
 export default {
   props: {
     showBettingModal: Boolean,
+    odd: String,
+    fix: String,
   },
   methods: {
     closeBettingModal() {
       this.$emit("closeBettingModal");
     },
   },
+  data() {
+    return {
+        stake: 0,
+    }
+  }
 };
 </script>
 

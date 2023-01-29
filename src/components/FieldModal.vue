@@ -12,13 +12,28 @@
     </div>
     <div class="calculation" :class="!showTeams ? 'calculation-out' : ''">
       <h3>Calculating...</h3>
-      <img
+      <!-- <img
         class="calculation-img"
         v-for="player in players"
         :key="player.id"
         :src="require(`../assets/${player.avatar}.png`)"
         :class="`player-${player.id}`"
+      /> -->
+      <img
+        class="calculation-img player-1"
+        :src="require(`../assets/${teamTwo[0].avatar}.png`)"
       />
+      <img
+        class="calculation-img player-2"
+        :src="require(`../assets/${teamOne[0].avatar}.png`)"
+      />
+      <!-- <img
+        class="calculation-img"
+        v-for="player in players"
+        :key="player.id"
+        :src="require(`../assets/${player.avatar}.png`)"
+        :class="`player-${player.id}`"
+      /> -->
       <img
         class="football-ball"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/1024px-Soccerball.svg.png?20190202162056"
@@ -75,15 +90,15 @@
       </div>
     </div>
     <div v-if="!showTeams" class="odds">
-      <div class="odd-item" @click="openBettingModal()">
+      <div class="odd-item" @click="openBettingModal(odds.oddOne, '1')">
         <p>1</p>
         <p>{{ odds.oddOne }}</p>
       </div>
-      <div class="odd-item" @click="openBettingModal()">
+      <div class="odd-item" @click="openBettingModal(odds.oddDraw, 'X')">
         <p>X</p>
         <p>{{ odds.oddDraw }}</p>
       </div>
-      <div class="odd-item" @click="openBettingModal()">
+      <div class="odd-item" @click="openBettingModal(odds.oddTwo, '2')">
         <p>2</p>
         <p>{{ odds.oddTwo }}</p>
       </div>
@@ -101,8 +116,8 @@ export default {
     odds: Object,
   },
   methods: {
-    openBettingModal() {
-      this.$emit("openBettingModal");
+    openBettingModal(odd, fix) {
+      this.$emit("openBettingModal", odd, fix);
     },
   },
 };
@@ -186,7 +201,7 @@ export default {
   width: 358px;
   animation: fadeInField linear 0.9s forwards;
   opacity: 0;
-  animation-delay: 3.9s;
+  /* animation-delay: 3.9s; */
 }
 
 @keyframes fadeInField {
@@ -382,17 +397,107 @@ export default {
 }
 
 .player-1 {
-  left: -100px;
-  top: 31px;
-  -webkit-animation: animation2 linear 19s infinite;
-  animation: animation2 linear 19s infinite;
+  left: 162px;
+  top: 483px;
+  -webkit-animation: animation2 linear 3s infinite;
+  animation: animation2 linear 3s infinite;
+}
+
+@keyframes animation2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(12px, -40px);
+  }
+  20% {
+    transform: translate(25px, -80px);
+  }
+  30% {
+    transform: translate(40px, -120px);
+  }
+  40% {
+    transform: translate(60px, -160px);
+  }
+  50% {
+    transform: translate(50px, -200px);
+  }
+  60% {
+    transform: translate(30px, -240px);
+  }
+  70% {
+    transform: translate(-20px, -280px);
+  }
+  80% {
+    transform: translate(-40px, -320px);
+  }
+  100% {
+    transform: translate(-60px, -280px);
+  }
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes ballAnimation {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(12px, -40px);
+  }
+  20% {
+    transform: translate(25px, -80px);
+  }
+  30% {
+    transform: translate(40px, -120px);
+  }
+  40% {
+    transform: translate(60px, -160px);
+  }
+  50% {
+    transform: translate(50px, -200px);
+  }
+  60% {
+    transform: translate(30px, -240px);
+  }
+  80% {
+    transform: translate(-40px, -320px);
+  }
+  100% {
+    transform: translate(0, -450px);
+  }
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  95% {
+    opactiy: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 .player-2 {
-  left: -4px;
-  top: 112px;
-  -webkit-animation: animation3 linear 16s infinite;
-  animation: animation3 linear 16s infinite;
+  left: 163px;
+  top: 52px;
+  -webkit-animation: animation3 linear 3s infinite;
+  animation: animation3 linear 3s infinite;
 }
 
 .player-3 {
@@ -511,9 +616,10 @@ export default {
   width: 50px;
   height: 50px;
   position: absolute;
-  bottom: -40px;
-  left: 87px;
-  animation: ballAnimation linear 19s infinite;
+  top: 435px;
+  -webkit-animation: ballAnimation linear 3s infinite;
+  animation: ballAnimation linear 3s infinite;
+  /* animation: ballAnimation linear 19s infinite; */
 }
 
 .player-i p {
@@ -603,60 +709,6 @@ export default {
   color: white;
 }
 
-@keyframes ballAnimation {
-  0% {
-    transform: translate(50px, 95px);
-  }
-  8.33% {
-    transform: translate(70px, 120px);
-  }
-  16.67% {
-    transform: translate(86px, 150px);
-  }
-  25% {
-    transform: translate(92px, 162px);
-  }
-  33.33% {
-    transform: translate(81px, 173px);
-  }
-  41.67% {
-    transform: translate(102px, 151px);
-  }
-  50% {
-    transform: translate(132px, 160px);
-  }
-  58.33% {
-    transform: translate(158px, 110px);
-  }
-  66.67% {
-    transform: translate(180px, 86px);
-  }
-  75% {
-    transform: translate(201px, 99px);
-  }
-  83.33% {
-    transform: translate(192px, 70px);
-  }
-  91.67% {
-    transform: translate(200px, 42px);
-  }
-  100% {
-    transform: translate(170px, 30px);
-  }
-  0% {
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
 @keyframes animation1 {
   0% {
     transform: translate(50px, 95px);
@@ -711,81 +763,21 @@ export default {
   }
 }
 
-@keyframes animation2 {
-  0% {
-    transform: translate(188px, 355px);
-  }
-  11.11% {
-    transform: translate(220px, 382px);
-  }
-  22.22% {
-    transform: translate(252px, 409px);
-  }
-  33.33% {
-    transform: translate(284px, 382px);
-  }
-  44.44% {
-    transform: translate(316px, 382px);
-  }
-  55.56% {
-    transform: translate(348px, 355px);
-  }
-  66.67% {
-    transform: translate(380px, 355px);
-  }
-  77.78% {
-    transform: translate(412px, 328px);
-  }
-  88.89% {
-    transform: translate(444px, 355px);
-  }
-  100% {
-    transform: translate(476px, 355px);
-  }
-  0% {
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
 @keyframes animation3 {
   0% {
-    transform: translate(54px, -23px);
+    transform: translate(-54px, 0);
   }
-  11.11% {
-    transform: translate(57px, 4px);
+  25% {
+    transform: translate(54px, 0);
   }
-  22.22% {
-    transform: translate(60px, 4px);
+  50% {
+    transform: translate(-54px, 0);
   }
-  33.33% {
-    transform: translate(63px, 31px);
-  }
-  44.44% {
-    transform: translate(66px, 4px);
-  }
-  55.56% {
-    transform: translate(70px, 4px);
-  }
-  66.67% {
-    transform: translate(73px, -23px);
-  }
-  77.78% {
-    transform: translate(76px, -23px);
-  }
-  88.89% {
-    transform: translate(79px, 4px);
+  75% {
+    transform: translate(32px, 0);
   }
   100% {
-    transform: translate(82px, -23px);
+    transform: translate(-100px, -20px);
   }
   0% {
     opacity: 0;

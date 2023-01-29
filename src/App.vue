@@ -24,6 +24,8 @@
     />
     <BettingModal
       :showBettingModal="showBettingModal"
+      :odd="odd"
+      :fix="fix"
       @closeBettingModal="closeBettingModal()"
     />
     <div class="overlay" v-if="showField"></div>
@@ -361,11 +363,16 @@ export default {
       ],
       teamOne: [],
       teamTwo: [],
+      odd: null,
+      fix: null,
     };
   },
   methods: {
-    openBettingModal() {
+    openBettingModal(odd, fix) {
       this.showBettingModal = true;
+      this.odd = odd;
+      this.fix = fix;
+      this
     },
     closeBettingModal() {
       this.showBettingModal = false;
@@ -379,7 +386,7 @@ export default {
       this.showTeams = true;
       setTimeout(() => {
         this.showTeams = false;
-      }, 3000);
+      }, 2250);
       const goalkeepers = this.players.filter((obj) => {
         return obj.position === "GK" && obj.picked == true;
       });
