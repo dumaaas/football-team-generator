@@ -19,6 +19,10 @@
         :src="require(`../assets/${player.avatar}.png`)"
         :class="`player-${player.id}`"
       />
+      <img
+        class="football-ball"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/1024px-Soccerball.svg.png?20190202162056"
+      />
     </div>
     <div v-if="!showTeams" class="team-one">
       <div
@@ -71,7 +75,18 @@
       </div>
     </div>
     <div v-if="!showTeams" class="odds">
-      {{ odds.oddOne }} pa {{ odds.oddDraw }} pa {{ odds.oddTwo }}
+      <div class="odd-item" @click="openBettingModal()">
+        <p>1</p>
+        <p>{{ odds.oddOne }}</p>
+      </div>
+      <div class="odd-item" @click="openBettingModal()">
+        <p>X</p>
+        <p>{{ odds.oddDraw }}</p>
+      </div>
+      <div class="odd-item" @click="openBettingModal()">
+        <p>2</p>
+        <p>{{ odds.oddTwo }}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -84,6 +99,11 @@ export default {
     showTeams: Boolean,
     players: Array,
     odds: Object,
+  },
+  methods: {
+    openBettingModal() {
+      this.$emit("openBettingModal");
+    },
   },
 };
 </script>
@@ -123,13 +143,37 @@ export default {
 .odds {
   bottom: -39px;
   position: absolute;
-  background: red;
   width: 100%;
-  color: white;
+  color: #e9cc74;
   opacity: 0;
   animation: fadeInField linear 0.9s forwards;
-    animation-delay: 1.8s;
+  animation-delay: 1.8s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
 
+.odds p {
+  padding: 0 8px;
+}
+
+.odd-item {
+  cursor: pointer;
+  display: flex;
+  width: 80px;
+  border: 1px solid #e9cc74;
+  background: #000;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  transition: ease-in-out 0.3s;
+}
+
+.odd-item:hover {
+  border: 1px solid #000;
+  background: #e9cc74;
+  color: #000;
 }
 
 .field-outline {
@@ -352,8 +396,8 @@ export default {
 }
 
 .player-3 {
-  left: -100px;
-  top: -50px;
+  left: 88px;
+  top: 160px;
   -webkit-animation: animation4 linear 19s infinite;
   animation: animation4 linear 19s infinite;
 }
@@ -394,8 +438,8 @@ export default {
 }
 
 .player-9 {
-  left: -100px;
-  top: 139px;
+  left: 180px;
+  top: 223px;
   -webkit-animation: animation10 linear 18s infinite;
   animation: animation10 linear 18s infinite;
 }
@@ -461,6 +505,15 @@ export default {
   top: 139px;
   -webkit-animation: animation19 linear 19s infinite;
   animation: animation19 linear 19s infinite;
+}
+
+.football-ball {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: -40px;
+  left: 87px;
+  animation: ballAnimation linear 19s infinite;
 }
 
 .player-i p {
@@ -548,6 +601,60 @@ export default {
   padding: 2px 6px;
   border: 1px solid #0575e6;
   color: white;
+}
+
+@keyframes ballAnimation {
+  0% {
+    transform: translate(50px, 95px);
+  }
+  8.33% {
+    transform: translate(70px, 120px);
+  }
+  16.67% {
+    transform: translate(86px, 150px);
+  }
+  25% {
+    transform: translate(92px, 162px);
+  }
+  33.33% {
+    transform: translate(81px, 173px);
+  }
+  41.67% {
+    transform: translate(102px, 151px);
+  }
+  50% {
+    transform: translate(132px, 160px);
+  }
+  58.33% {
+    transform: translate(158px, 110px);
+  }
+  66.67% {
+    transform: translate(180px, 86px);
+  }
+  75% {
+    transform: translate(201px, 99px);
+  }
+  83.33% {
+    transform: translate(192px, 70px);
+  }
+  91.67% {
+    transform: translate(200px, 42px);
+  }
+  100% {
+    transform: translate(170px, 30px);
+  }
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes animation1 {

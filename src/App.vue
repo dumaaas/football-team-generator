@@ -20,6 +20,11 @@
       :showTeams="showTeams"
       :players="players"
       :odds="odds"
+      @openBettingModal="openBettingModal"
+    />
+    <BettingModal
+      :showBettingModal="showBettingModal"
+      @closeBettingModal="closeBettingModal()"
     />
     <div class="overlay" v-if="showField"></div>
   </div>
@@ -28,17 +33,21 @@
 <script>
 import FieldModal from "./components/FieldModal.vue";
 import PlayerCard from "./components/PlayerCard.vue";
+import BettingModal from "./components/BettingModal.vue";
+
 export default {
   name: "App",
   components: {
     PlayerCard,
     FieldModal,
+    BettingModal,
   },
   data() {
     return {
       showField: false,
       showTeams: false,
       odds: null,
+      showBettingModal: false,
       players: [
         {
           id: 1,
@@ -355,6 +364,12 @@ export default {
     };
   },
   methods: {
+    openBettingModal() {
+      this.showBettingModal = true;
+    },
+    closeBettingModal() {
+      this.showBettingModal = false;
+    },
     pickPlayer(value) {
       let objIndex = this.players.findIndex((obj) => obj.id == value.id);
       this.players[objIndex].picked = !this.players[objIndex].picked;
@@ -632,15 +647,17 @@ export default {
         });
 
         console.log(teamOneSum, "prviTimSum pa drugiTimSum", teamTwoSum);
- 
-        var [oddOne, oddTwo, oddDraw] = this.izracunajKvote(teamOneSum, teamTwoSum)
+
+        var [oddOne, oddTwo, oddDraw] = this.izracunajKvote(
+          teamOneSum,
+          teamTwoSum
+        );
 
         this.odds = {
           oddOne: oddOne,
-          oddTwo: oddTwo, 
-          oddDraw: oddDraw
-        }
-
+          oddTwo: oddTwo,
+          oddDraw: oddDraw,
+        };
       }
     },
     findClosestPair(firstTeam, secondTeam) {
@@ -673,7 +690,7 @@ export default {
           }
         }
       }
-      console.log(closestPair, 'hej mala malena')
+      console.log(closestPair, "hej mala malena");
       return closestPair;
     },
     izracunajKvote(snagaEkipe1, snagaEkipe2) {
@@ -708,6 +725,11 @@ export default {
   background: #997521;
   background: radial-gradient(ellipse at center, #45350f 0%, black);
   min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
 }
 
 .overlay {
