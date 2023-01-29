@@ -679,7 +679,7 @@ export default {
   background: red;
   position: absolute;
   z-index: 9999;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.87);
 }
 
 h1 {

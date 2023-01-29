@@ -1,5 +1,15 @@
 <template>
   <div id="field">
+    <div class="field-outline">
+      <div class="sixten-first"></div>
+      <div class="sixten-second"></div>
+      <div class="sixten-circle-first"></div>
+      <div class="sixten-circle-second"></div>
+
+      <div class="center-line"></div>
+      <div class="center-circle"></div>
+      <div class="center-point"></div>
+    </div>
     <div class="team-one">
       <div
         class="player-i"
@@ -67,12 +77,98 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 10000;
-  background-image: url("../assets/field.png");
   height: 576px;
   width: 387px;
   background-size: contain;
   background-repeat: no-repeat;
   border: 4px solid #e9cc74;
+  background: rgba(0, 0, 0, 1);
+  /* background-image: url("../assets/field.png"); */
+}
+
+.field-outline {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border: 1px solid #e9cc74;
+  width: 97%;
+  height: 548px;
+  width: 358px;
+}
+
+.sixten-first {
+  position: absolute;
+  top: 0;
+  left: 56px;
+  height: 20%;
+  width: 70%;
+  border: 1px solid #e9cc74;
+  border-top: 0;
+  background: rgba(0, 0, 0, 1);
+}
+
+.sixten-circle-first {
+  position: absolute;
+  top: 39px;
+  left: 129px;
+  border-radius: 50%;
+  border: 1px solid #e9cc74;
+  width: 100px;
+  height: 100px;
+  z-index: -1;
+}
+
+.sixten-second {
+  position: absolute;
+  bottom: 0;
+  left: 56px;
+  height: 20%;
+  width: 70%;
+  border: 1px solid #e9cc74;
+  border-bottom: 0;
+  background: rgba(0, 0, 0, 1);
+}
+
+.sixten-circle-second {
+  position: absolute;
+  bottom: 39px;
+  left: 129px;
+  border-radius: 50%;
+  border: 1px solid #e9cc74;
+  width: 100px;
+  height: 100px;
+  z-index: -1;
+}
+
+.center-line {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background: #e9cc74;
+}
+
+.center-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130px;
+  height: 130px;
+  border: 1px solid #e9cc74;
+  border-radius: 50%;
+}
+
+.center-point {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border: 1px solid #e9cc74;
+  background: #e9cc74;
+  border-radius: 50%;
 }
 
 .player-i {
