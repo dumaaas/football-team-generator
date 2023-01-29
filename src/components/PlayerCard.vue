@@ -8,7 +8,17 @@
         <div class="player-card-top">
           <div class="player-master-info">
             <div class="player-rating">
-              <span>{{ player.overall }}</span>
+              <span>{{
+                Math.round(
+                  (player.strength.pace +
+                    player.strength.shoot +
+                    player.strength.pass +
+                    player.strength.dribling +
+                    player.strength.defensive +
+                    player.strength.physics) /
+                    6
+                )
+              }}</span>
             </div>
             <div class="player-position">
               <span>{{ player.position }}</span>
@@ -47,29 +57,40 @@
             <div class="player-features">
               <div class="player-features-col">
                 <span>
-                  <div class="player-feature-value">{{player.strength.pace}}</div>
+                  <div class="player-feature-value">
+                    {{ player.strength.pace }}
+                  </div>
                   <div class="player-feature-title">PAC</div></span
                 ><span>
-                  <div class="player-feature-value">{{player.strength.shoot}}</div>
+                  <div class="player-feature-value">
+                    {{ player.strength.shoot }}
+                  </div>
                   <div class="player-feature-title">SHO</div></span
                 ><span>
-                  <div class="player-feature-value">{{player.strength.pass}}</div>
+                  <div class="player-feature-value">
+                    {{ player.strength.pass }}
+                  </div>
                   <div class="player-feature-title">PAS</div></span
                 >
               </div>
               <div class="player-features-col">
                 <span>
-                  <div class="player-feature-value">{{player.strength.dribling}}</div>
+                  <div class="player-feature-value">
+                    {{ player.strength.dribling }}
+                  </div>
                   <div class="player-feature-title">DRI</div></span
                 ><span>
-                  <div class="player-feature-value">{{player.strength.defensive}}</div>
+                  <div class="player-feature-value">
+                    {{ player.strength.defensive }}
+                  </div>
                   <div class="player-feature-title">DEF</div></span
                 ><span>
-                  <div class="player-feature-value">{{player.strength.physics}}</div>
+                  <div class="player-feature-value">
+                    {{ player.strength.physics }}
+                  </div>
                   <div class="player-feature-title">PHY</div></span
                 >
               </div>
-            
             </div>
           </div>
         </div>
@@ -85,9 +106,9 @@ export default {
   },
   methods: {
     pickPlayer(player) {
-        this.$emit('pickPlayer', player)
-    }
-  }
+      this.$emit("pickPlayer", player);
+    },
+  },
 };
 </script>
 
@@ -126,7 +147,7 @@ export default {
   position: relative;
   width: 300px;
   height: 485px;
-  background-image: url('../assets/card_bg.png');
+  background-image: url("../assets/card_bg.png");
   background-position: center center;
   background-size: 100% 100%;
   background-repeat: no-repeat;

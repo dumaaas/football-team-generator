@@ -369,17 +369,9 @@ export default {
           .sort(() => {
             return Math.random() - 0.5;
           });
-      } else {
-        results = this.players
-          .filter((obj) => {
-            return obj.picked === true;
-          })
-          .sort(() => {
-            return Math.random() - 0.5;
-          });
-        var flag = true;
-        var firstTeam = [];
-        var secondTeam = [];
+        let flag = true;
+        let firstTeam = [];
+        let secondTeam = [];
         for (let i = 0; i < results.length; i++) {
           if (flag) {
             firstTeam.push(results[i]);
@@ -390,16 +382,16 @@ export default {
           }
         }
         let countPlayers = 0;
-        var lastStrongerTeam = undefined;
+        let lastStrongerTeam = undefined;
         while (countPlayers < results.length / 2) {
-          var pairOfTwo = this.findClosestPair(firstTeam, secondTeam);
+          let pairOfTwo = this.findClosestPair(firstTeam, secondTeam);
           // this.teamOne.push(pairOfTwo[0]);
           // this.teamTwo.push(pairOfTwo[1]);
-          var findItemOne = firstTeam.findIndex(
+          let findItemOne = firstTeam.findIndex(
             (item) => item.id === pairOfTwo[0].id
           );
 
-          var firstStrength =
+          let firstStrength =
             pairOfTwo[0].strength.pace +
             pairOfTwo[0].strength.shoot +
             pairOfTwo[0].strength.pass +
@@ -407,7 +399,7 @@ export default {
             pairOfTwo[0].strength.defensive +
             pairOfTwo[0].strength.physics;
 
-          var secondStrength =
+          let secondStrength =
             pairOfTwo[1].strength.pace +
             pairOfTwo[1].strength.shoot +
             pairOfTwo[1].strength.pass +
@@ -415,7 +407,7 @@ export default {
             pairOfTwo[1].strength.defensive +
             pairOfTwo[1].strength.physics;
 
-            console.log(firstStrength,secondStrength, 'snage')
+          console.log(firstStrength, secondStrength, "snage");
 
           if (firstStrength > secondStrength) {
             if (lastStrongerTeam == "first") {
@@ -473,6 +465,138 @@ export default {
 
         var teamOneSum = 0;
         var teamTwoSum = 0;
+
+        this.teamOne.forEach((item) => {
+          teamOneSum +=
+            item.strength.pace +
+            item.strength.shoot +
+            item.strength.pass +
+            item.strength.dribling +
+            item.strength.defensive +
+            item.strength.physics;
+        });
+
+        this.teamTwo.forEach((item) => {
+          teamTwoSum +=
+            item.strength.pace +
+            item.strength.shoot +
+            item.strength.pass +
+            item.strength.dribling +
+            item.strength.defensive +
+            item.strength.physics;
+        });
+
+        console.log(teamOneSum, "prviTimSum pa drugiTimSum", teamTwoSum);
+      } else {
+        results = this.players
+          .filter((obj) => {
+            return obj.picked === true;
+          })
+          .sort(() => {
+            return Math.random() - 0.5;
+          });
+        let flag = true;
+        let firstTeam = [];
+        let secondTeam = [];
+        for (let i = 0; i < results.length; i++) {
+          if (flag) {
+            firstTeam.push(results[i]);
+            flag = false;
+          } else {
+            secondTeam.push(results[i]);
+            flag = true;
+          }
+        }
+        let countPlayers = 0;
+        let lastStrongerTeam = undefined;
+        while (countPlayers < results.length / 2) {
+          let pairOfTwo = this.findClosestPair(firstTeam, secondTeam);
+          // this.teamOne.push(pairOfTwo[0]);
+          // this.teamTwo.push(pairOfTwo[1]);
+          let findItemOne = firstTeam.findIndex(
+            (item) => item.id === pairOfTwo[0].id
+          );
+
+          console.log(pairOfTwo, "parDava");
+
+          let firstStrength =
+            pairOfTwo[0].strength.pace +
+            pairOfTwo[0].strength.shoot +
+            pairOfTwo[0].strength.pass +
+            pairOfTwo[0].strength.dribling +
+            pairOfTwo[0].strength.defensive +
+            pairOfTwo[0].strength.physics;
+
+          let secondStrength =
+            pairOfTwo[1].strength.pace +
+            pairOfTwo[1].strength.shoot +
+            pairOfTwo[1].strength.pass +
+            pairOfTwo[1].strength.dribling +
+            pairOfTwo[1].strength.defensive +
+            pairOfTwo[1].strength.physics;
+
+          console.log(firstStrength, secondStrength, "snage");
+
+          if (firstStrength > secondStrength) {
+            if (lastStrongerTeam == "first") {
+              this.teamTwo.push(pairOfTwo[0]);
+              this.teamOne.push(pairOfTwo[1]);
+              this.lastStrongerTeam == "second";
+            } else if (lastStrongerTeam == "second") {
+              this.teamOne.push(pairOfTwo[0]);
+              this.Two.push(pairOfTwo[1]);
+              this.lastStrongerTeam == "first";
+            } else {
+              this.teamTwo.push(pairOfTwo[1]);
+              this.teamOne.push(pairOfTwo[0]);
+            }
+          } else if (firstStrength < secondStrength) {
+            if (lastStrongerTeam == "first") {
+              this.teamTwo.push(pairOfTwo[1]);
+              this.teamOne.push(pairOfTwo[0]);
+              this.lastStrongerTeam == "second";
+            } else if (lastStrongerTeam == "second") {
+              this.teamOne.push(pairOfTwo[1]);
+              this.Two.push(pairOfTwo[0]);
+              this.lastStrongerTeam == "first";
+            } else {
+              this.teamTwo.push(pairOfTwo[1]);
+              this.teamOne.push(pairOfTwo[0]);
+            }
+          } else {
+            this.teamTwo.push(pairOfTwo[1]);
+            this.teamOne.push(pairOfTwo[0]);
+          }
+
+          console.log(
+            pairOfTwo[0].strength.pace +
+              pairOfTwo[0].strength.shoot +
+              pairOfTwo[0].strength.pass +
+              pairOfTwo[0].strength.dribling +
+              pairOfTwo[0].strength.defensive +
+              pairOfTwo[0].strength.physics,
+            "TIM JEDAN"
+          );
+
+          console.log(
+            pairOfTwo[1].strength.pace +
+              pairOfTwo[1].strength.shoot +
+              pairOfTwo[1].strength.pass +
+              pairOfTwo[1].strength.dribling +
+              pairOfTwo[1].strength.defensive +
+              pairOfTwo[1].strength.physics,
+            "TIM DVA"
+          );
+          firstTeam.splice(findItemOne, 1);
+          let findItemTwo = secondTeam.findIndex(
+            (item) => item.id === pairOfTwo[1].id
+          );
+          secondTeam.splice(findItemTwo, 1);
+          countPlayers++;
+        }
+
+        let teamOneSum = 0;
+        let teamTwoSum = 0;
 
         this.teamOne.forEach((item) => {
           teamOneSum +=
