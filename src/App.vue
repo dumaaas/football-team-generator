@@ -594,7 +594,7 @@ export default {
         },
         {
           id: 11,
-          name: "Zoran Nešto",
+          name: "Zoran ?",
           avatar: "kure",
           nick: "zoran",
           overall: 97,
@@ -640,7 +640,7 @@ export default {
         },
         {
           id: 13,
-          name: "Andrija Backović",
+          name: "Nikola Backović",
           avatar: "kure",
           nick: "bacak",
           overall: 97,
@@ -709,7 +709,7 @@ export default {
         },
         {
           id: 16,
-          name: "Igor",
+          name: "Igor Perović",
           avatar: "kure",
           nick: "iggi",
           overall: 97,
