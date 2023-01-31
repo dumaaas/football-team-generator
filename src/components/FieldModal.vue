@@ -239,7 +239,7 @@ export default {
     },
     closeField() {
       this.$emit("closeField");
-    }
+    },
   },
 };
 </script>
@@ -350,8 +350,8 @@ export default {
 
 .close-field {
   position: fixed;
-  top: -20px;
-  right: -14px;
+  top: -29px;
+  right: -4px;
   background: red;
   width: 25px;
   height: 25px;
