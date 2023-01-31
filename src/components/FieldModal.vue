@@ -349,7 +349,7 @@ export default {
 }
 
 .close-field {
-  position: absolute;
+  position: fixed;
   top: -20px;
   right: -14px;
   background: red;
