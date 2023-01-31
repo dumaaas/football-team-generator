@@ -1,5 +1,82 @@
 <template>
   <div id="field">
+    <div class="teams-score">
+      <div class="team-score team-yellow">
+        <p>Team Yellow</p>
+        <div class="team-ratings">
+          <p>
+            {{
+              Math.round(
+                teamOne.reduce((accumulator, object) => {
+                  return (
+                    accumulator +
+                    object.strength.shoot +
+                    object.strength.pass +
+                    object.strength.dribling
+                  );
+                }, 0) /
+                  (teamOne.length + 3)
+              )
+            }}
+            OFF
+          </p>
+          <p>
+            {{
+              Math.round(
+                teamOne.reduce((accumulator, object) => {
+                  return (
+                    accumulator +
+                    object.strength.pace +
+                    object.strength.physics +
+                    object.strength.defensive
+                  );
+                }, 0) /
+                  (teamOne.length + 3)
+              )
+            }}
+
+            DEF
+          </p>
+        </div>
+      </div>
+      <div class="team-score team-blue">
+        <p>Team Blue</p>
+        <div class="team-ratings">
+          <p>
+            {{
+              Math.round(
+                teamTwo.reduce((accumulator, object) => {
+                  return (
+                    accumulator +
+                    object.strength.shoot +
+                    object.strength.pass +
+                    object.strength.dribling
+                  );
+                }, 0) /
+                  (teamTwo.length + 3)
+              )
+            }}
+            OFF
+          </p>
+          <p>
+            {{
+              Math.round(
+                teamTwo.reduce((accumulator, object) => {
+                  return (
+                    accumulator +
+                    object.strength.pace +
+                    object.strength.physics +
+                    object.strength.defensive
+                  );
+                }, 0) /
+                  (teamOne.length + 3)
+              )
+            }}
+            DEF
+          </p>
+        </div>
+      </div>
+    </div>
     <div class="field-outline">
       <div class="sixten-first"></div>
       <div class="sixten-second"></div>
@@ -60,8 +137,21 @@
             player.strength.defensive +
             player.strength.physics
           }} -->
-          {{ player.avatar }}
+          {{ player.nick }}
         </p>
+        <span>
+          {{
+            Math.round(
+              (player.strength.pace +
+                player.strength.shoot +
+                player.strength.pass +
+                player.strength.dribling +
+                player.strength.defensive +
+                player.strength.physics) /
+                6
+            )
+          }}
+        </span>
       </div>
     </div>
     <div v-if="!showTeams" class="team-two">
@@ -85,8 +175,19 @@
             player.strength.defensive +
             player.strength.physics
           }} -->
-          {{ player.avatar }}
+          {{ player.nick }}
         </p>
+        <span>{{
+          Math.round(
+            (player.strength.pace +
+              player.strength.shoot +
+              player.strength.pass +
+              player.strength.dribling +
+              player.strength.defensive +
+              player.strength.physics) /
+              6
+          )
+        }}</span>
       </div>
     </div>
     <div v-if="!showTeams" class="odds">
@@ -137,6 +238,37 @@ export default {
   border: 4px solid #e9cc74;
   background: rgba(0, 0, 0, 1);
   /* background-image: url("../assets/field.png"); */
+}
+
+.teams-score {
+  position: absolute;
+  top: -70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.team-yellow {
+  background: #000;
+  border: 1px solid #e9cc74;
+  padding: 2px 8px;
+  color: #e9cc74
+}
+
+
+.team-blue {
+  background: #000;
+  border: 1px solid #0575e6;
+  padding: 2px 8px;
+  color: #0575e6;
+}
+
+.team-ratings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
 }
 
 .calculation {
@@ -514,6 +646,22 @@ export default {
   color: white;
 }
 
+.player-i span {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 25px;
+  height: 25px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
+}
+
 .team-one {
   position: absolute;
   top: 0;
@@ -539,6 +687,22 @@ export default {
   opacity: 0;
   animation: fadeInBottom linear 0.9s forwards;
   animation-delay: 0.9s;
+}
+
+.player-j span {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 25px;
+  height: 25px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
 }
 
 .player-j-1 {
