@@ -400,12 +400,12 @@ export default {
           weight: "82",
           picked: false,
           strength: {
-            pace: 85,
-            physics: 87,
-            defensive: 82,
-            shoot: 82,
-            pass: 71,
-            dribling: 80,
+            pace: 88,
+            physics: 78,
+            defensive: 83,
+            shoot: 75,
+            pass: 75,
+            dribling: 87,
           },
         },
         {
@@ -437,7 +437,7 @@ export default {
           avatar: "andro",
           nick: "andro",
           overall: 97,
-          position: "DF",
+          position: "CB",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -460,7 +460,7 @@ export default {
           avatar: "lukaV",
           nick: "luka",
           overall: 97,
-          position: "DF",
+          position: "CB",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -483,7 +483,7 @@ export default {
           avatar: "kure",
           nick: "tonči",
           overall: 97,
-          position: "ST",
+          position: "LW",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -506,7 +506,7 @@ export default {
           avatar: "kure",
           nick: "andrej",
           overall: 97,
-          position: "ST",
+          position: "RB",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -529,7 +529,7 @@ export default {
           avatar: "mico",
           nick: "mićo",
           overall: 97,
-          position: "ST",
+          position: "LB",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -552,7 +552,7 @@ export default {
           avatar: "švedo",
           nick: "švedo",
           overall: 97,
-          position: "ST",
+          position: "AMF",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -575,7 +575,7 @@ export default {
           avatar: "kure",
           nick: "neli",
           overall: 97,
-          position: "ST",
+          position: "DMF",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -598,7 +598,7 @@ export default {
           avatar: "kure",
           nick: "zoran",
           overall: 97,
-          position: "ST",
+          position: "CB",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -621,7 +621,7 @@ export default {
           avatar: "kure",
           nick: "ostoja",
           overall: 97,
-          position: "ST",
+          position: "AMF",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -644,7 +644,7 @@ export default {
           avatar: "kure",
           nick: "bacak",
           overall: 97,
-          position: "ST",
+          position: "CF",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -663,11 +663,11 @@ export default {
         },
         {
           id: 14,
-          name: "Toba",
+          name: "Miodrag Radović",
           avatar: "kure",
           nick: "toba",
           overall: 97,
-          position: "ST",
+          position: "DMF",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -690,7 +690,7 @@ export default {
           avatar: "kure",
           nick: "fika",
           overall: 97,
-          position: "ST",
+          position: "DMF",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -713,7 +713,7 @@ export default {
           avatar: "kure",
           nick: "iggi",
           overall: 97,
-          position: "ST",
+          position: "CMF",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
@@ -732,11 +732,11 @@ export default {
         },
         {
           id: 17,
-          name: "Dado",
+          name: "Dado Perović",
           avatar: "kure",
           nick: "dado",
           overall: 97,
-          position: "ST",
+          position: "CMF",
           nationalityImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
           clubImg:
