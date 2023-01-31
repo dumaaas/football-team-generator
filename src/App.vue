@@ -370,7 +370,7 @@ export default {
           overall: 97,
           position: "ST",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg",
           clubImg:
             "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
           height: "1.86",
@@ -439,9 +439,9 @@ export default {
           overall: 97,
           position: "CB",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -462,9 +462,9 @@ export default {
           overall: 97,
           position: "CB",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -485,9 +485,9 @@ export default {
           overall: 97,
           position: "LW",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -508,9 +508,9 @@ export default {
           overall: 97,
           position: "RB",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://i1.sndcdn.com/avatars-000143681077-7am4hl-t200x200.jpg",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -531,9 +531,9 @@ export default {
           overall: 97,
           position: "LB",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -554,9 +554,9 @@ export default {
           overall: 97,
           position: "AMF",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -577,9 +577,9 @@ export default {
           overall: 97,
           position: "DMF",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -600,9 +600,9 @@ export default {
           overall: 97,
           position: "CB",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -623,9 +623,9 @@ export default {
           overall: 97,
           position: "AMF",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -646,9 +646,9 @@ export default {
           overall: 97,
           position: "CF",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://i1.sndcdn.com/avatars-000143681077-7am4hl-t200x200.jpg",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -669,9 +669,9 @@ export default {
           overall: 97,
           position: "DMF",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://i1.sndcdn.com/avatars-000143681077-7am4hl-t200x200.jpg",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -692,9 +692,9 @@ export default {
           overall: 97,
           position: "DMF",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -715,9 +715,9 @@ export default {
           overall: 97,
           position: "CMF",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -738,9 +738,9 @@ export default {
           overall: 97,
           position: "CMF",
           nationalityImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
           clubImg:
-            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
           height: "1.86",
           weight: "74",
           picked: false,
@@ -759,6 +759,11 @@ export default {
       odd: null,
       fix: null,
     };
+  },
+  mounted() {
+    this.players.sort(() => {
+      return Math.random() - 0.5;
+    });
   },
   methods: {
     openBettingModal(odd, fix) {
