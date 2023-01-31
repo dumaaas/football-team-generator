@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="players-wrapper">
+    <div id="players-wrapper" class="players-wrapper mt-104">
       <h2>
         Pick players
         <select v-model="teamTermin" style="margin-left: 8px">
@@ -989,6 +989,22 @@ export default {
         });
       },
     },
+    pickedPlayers(newVal) {
+      const b = document.getElementById("players-wrapper");
+      if (newVal.length && newVal.length < 7) {
+        b.classList.remove("mt-254");
+        b.classList.remove("mt-104");
+        b.classList.add("mt-176");
+      } else if (newVal.length && newVal.length >= 7) {
+        b.classList.add("mt-254");
+        b.classList.remove("mt-104");
+        b.classList.remove("mt-176");
+      } else {
+        b.classList.remove("mt-254");
+        b.classList.add("mt-104");
+        b.classList.remove("mt-176");
+      }
+    },
   },
   mounted() {
     this.teamTermin =
@@ -1280,6 +1296,17 @@ export default {
   overflow-x: hidden;
 }
 
+.mt-254 {
+  margin-top: 254px;
+}
+.mt-104 {
+  margin-top: 104px;
+}
+
+.mt-176 {
+  margin-top: 176px;
+}
+
 body.locked {
   overflow: hidden;
 }
@@ -1336,6 +1363,9 @@ h1 {
   background: #110f08;
   padding: 20px 0;
   border-bottom: 1px solid #e9cc74;
+  position: fixed;
+  width: 100%;
+  z-index: 999;
 }
 
 .header-players {
