@@ -267,6 +267,9 @@ export default {
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
+  opacity: 0;
+  animation: fadeInField linear 0.9s forwards;
+  animation-delay: 4s;
 }
 
 .team-yellow {
@@ -363,6 +366,10 @@ export default {
   background: #000;
   color: #e9cc74;
   cursor: pointer;
+  opacity: 0;
+  z-index: 100000;
+  animation: fadeInField linear 0.9s forwards;
+  animation-delay: 4s;
 }
 
 .field-outline {
