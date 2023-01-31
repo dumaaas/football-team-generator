@@ -137,7 +137,7 @@ export default {
 .player-picked {
   position: absolute;
   top: 103px;
-  z-index: 1000;
+  z-index: 998;
   right: 7px;
 }
 
