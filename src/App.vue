@@ -1,8 +1,53 @@
 <template>
   <div id="app">
-    <h1>Football team generator</h1>
+    <div class="header">
+      <h1 v-if="!pickedPlayers.length">Football team generator</h1>
+      <div v-else class="header-picked">
+        <h1>Picked: {{ pickedPlayers.length }}/{{ teamSize * 2 }}</h1>
+        <div class="header-players">
+          <div
+            class="header-player"
+            v-for="player in pickedPlayers"
+            :key="player.id"
+          >
+            <img class="" :src="require(`./assets/${player.avatar}.png`)" />
+            <p>{{ player.nick }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="players-wrapper">
       <h2>Pick players</h2>
+      <div class="">
+        <input
+          type="text"
+          v-model="searchByName"
+          placeholder="Search by name.."
+        />
+        <select v-model="filterSearch" style="margin-left: 8px">
+          <option selected value="random-filter">Random filter</option>
+          <option value="overall-asc">Overall ASC</option>
+          <option value="overall-desc">Overall DESC</option>
+          <option value="pace-asc">Pace ASC</option>
+          <option value="pace-desc">Pace DESC</option>
+          <option value="shooting-asc">Shooting ASC</option>
+          <option value="shooting-desc">Shooting DESC</option>
+          <option value="pass-asc">Pass ASC</option>
+          <option value="pass-desc">Pass DESC</option>
+          <option value="dribling-asc">Dribling ASC</option>
+          <option value="dribling-desc">Dribling DESC</option>
+          <option value="defensive-asc">Defensive ASC</option>
+          <option value="defensive-desc">Defensive DESC</option>
+          <option value="physics-asc">Physics ASC</option>
+          <option value="physics-desc">Physics DESC</option>
+        </select>
+        <select v-model="teamSize" style="margin-left: 8px">
+          <option value="4">Team size: 4</option>
+          <option value="5">Team size: 5</option>
+          <option value="6">Team size: 6</option>
+        </select>
+      </div>
       <div class="players">
         <PlayerCard
           v-for="player in players"
@@ -28,6 +73,7 @@
       :fix="fix"
       @closeBettingModal="closeBettingModal()"
     />
+    <ErrorModal :msg="errorMsg" v-if="showErrorModal"/>
     <div class="overlay" v-if="showField"></div>
   </div>
 </template>
@@ -36,6 +82,7 @@
 import FieldModal from "./components/FieldModal.vue";
 import PlayerCard from "./components/PlayerCard.vue";
 import BettingModal from "./components/BettingModal.vue";
+import ErrorModal from "./components/ErrorModal.vue";
 
 export default {
   name: "App",
@@ -43,6 +90,7 @@ export default {
     PlayerCard,
     FieldModal,
     BettingModal,
+    ErrorModal,
   },
   data() {
     return {
@@ -50,6 +98,12 @@ export default {
       showTeams: false,
       odds: null,
       showBettingModal: false,
+      searchByName: "",
+      filterSearch: "random-filter",
+      teamSize: "5",
+      playersCopy: [],
+      errorMsg: '',
+      showErrorModal: false,
       // players: [
       //   {
       //     id: 1,
@@ -758,9 +812,143 @@ export default {
       teamTwo: [],
       odd: null,
       fix: null,
+      pickedPlayers: [],
     };
   },
+  watch: {
+    searchByName(newVal) {
+      var results = this.playersCopy.filter((obj) => {
+        return obj.name.toLowerCase().includes(newVal.toLowerCase());
+      });
+
+      this.players = results;
+    },
+    teamSize(newVal) {
+      if (this.pickedPlayers.length > parseInt(newVal) * 2) {
+        this.pickedPlayers = [];
+        this.players.forEach((obj) => {
+          if (obj.picked) {
+            obj.picked = !obj.picked;
+          }
+        });
+      }
+    },
+    filterSearch(newVal) {
+      switch (newVal) {
+        case "random-filter":
+          this.players.sort(() => {
+            return Math.random() - 0.5;
+          });
+          break;
+        case "overall-asc":
+          this.players.sort(
+            (a, b) =>
+              Math.round(
+                (a.strength.pace +
+                  a.strength.physics +
+                  a.strength.defensive +
+                  a.strength.shoot +
+                  a.strength.pass +
+                  a.strength.dribling) /
+                  6
+              ) -
+              Math.round(
+                (b.strength.pace +
+                  b.strength.physics +
+                  b.strength.defensive +
+                  b.strength.shoot +
+                  b.strength.pass +
+                  b.strength.dribling) /
+                  6
+              )
+          );
+          break;
+        case "overall-desc":
+          this.players.sort(
+            (a, b) =>
+              Math.round(
+                (b.strength.pace +
+                  b.strength.physics +
+                  b.strength.defensive +
+                  b.strength.shoot +
+                  b.strength.pass +
+                  b.strength.dribling) /
+                  6
+              ) -
+              Math.round(
+                (a.strength.pace +
+                  a.strength.physics +
+                  a.strength.defensive +
+                  a.strength.shoot +
+                  a.strength.pass +
+                  a.strength.dribling) /
+                  6
+              )
+          );
+          break;
+        case "pace-asc":
+          this.players.sort((a, b) => a.strength.pace - b.strength.pace);
+          break;
+        case "pace-desc":
+          this.players.sort((a, b) => b.strength.pace - a.strength.pace);
+          break;
+        case "shooting-asc":
+          this.players.sort(
+            (a, b) => a.strength.shooting - b.strength.shooting
+          );
+          break;
+        case "shooting-desc":
+          this.players.sort(
+            (a, b) => b.strength.shooting - a.strength.shooting
+          );
+          break;
+        case "pass-asc":
+          this.players.sort((a, b) => a.strength.pass - b.strength.pass);
+          break;
+        case "pass-desc":
+          this.players.sort((a, b) => b.strength.pass - a.strength.pass);
+          break;
+        case "dribling-asc":
+          this.players.sort(
+            (a, b) => a.strength.dribling - b.strength.dribling
+          );
+          break;
+        case "dribling-desc":
+          this.players.sort(
+            (a, b) => b.strength.dribling - a.strength.dribling
+          );
+          break;
+        case "defensive-asc":
+          this.players.sort(
+            (a, b) => a.strength.defensive - b.strength.defensive
+          );
+          break;
+        case "defensive-desc":
+          this.players.sort(
+            (a, b) => b.strength.defensive - a.strength.defensive
+          );
+          break;
+        case "physics-asc":
+          this.players.sort((a, b) => a.strength.physics - b.strength.physics);
+          break;
+        case "physics-desc":
+          this.players.sort((a, b) => b.strength.physics - a.strength.physics);
+          break;
+        default:
+          break;
+      }
+    },
+    players: {
+      deep: true,
+      handler() {
+        this.pickedPlayers = this.playersCopy.filter((obj) => {
+          return obj.picked == true;
+        });
+      },
+    },
+  },
   mounted() {
+    this.playersCopy = this.players;
     this.players.sort(() => {
       return Math.random() - 0.5;
     });
@@ -776,6 +964,14 @@ export default {
       this.showBettingModal = false;
     },
     pickPlayer(value) {
+      if (this.pickedPlayers.length > this.teamSize * 2) {
+        this.errorMsg = "You already picked maximum nubmer of players.";
+        this.showErrorModal = true;
+        setTimeout(() => {
+          this.showErrorModal = false;
+        }, 2000);
+        return;
+      }
       let objIndex = this.players.findIndex((obj) => obj.id == value.id);
       this.players[objIndex].picked = !this.players[objIndex].picked;
     },
@@ -1220,6 +1416,20 @@ export default {
   overflow-x: hidden;
 }
 
+input,
+select {
+  position: relative;
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #e9cc74;
+  background: rgba(255, 255, 255, 0.23);
+  color: #e9cc74;
+}
+
+select {
+  padding: 5px 8px;
+}
+
 body {
   overflow-x: hidden;
 }
@@ -1240,9 +1450,44 @@ h1 {
   text-transform: uppercase;
   color: #e9cc74;
   font-size: 44px;
+}
+
+.header {
   background: #110f08;
   padding: 20px 0;
   border-bottom: 1px solid #e9cc74;
+}
+
+.header-players {
+  margin: 0 auto;
+  overflow-x: auto;
+}
+
+.header-player {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.header-player:last-child() {
+  margin-right: 0;
+}
+
+.header-player img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  border: 1px solid #e9cc74;
+  background: linear-gradient(to right, #997521, #e9cc74);
+}
+
+.header-player p {
+  color: #e9cc74;
+  text-transform: uppercase;
+}
+
+.header-picker {
+  display: flex;
+  gap: 10px;
 }
 * {
   margin: 0;
