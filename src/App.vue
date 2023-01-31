@@ -504,7 +504,7 @@ export default {
           id: 7,
           name: "Andrej Vukajlović",
           avatar: "kure",
-          nick: "vukandrej",
+          nick: "andrej",
           overall: 97,
           position: "ST",
           nationalityImg:
