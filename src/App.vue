@@ -1031,9 +1031,6 @@ export default {
       }
     },
     generateTeams(teamKind) {
-      window.scrollTo(0, 0);
-      const b = document.querySelector("body");
-      b.classList.add("locked");
       // validations
       if (this.pickedPlayers.length % 2 !== 0 && teamKind === undefined) {
         this.errorMsg = "Number of players must be even!";
@@ -1053,6 +1050,11 @@ export default {
         }, 5000);
         return;
       }
+
+      // ako je prosao validacije zakljucaj body
+      window.scrollTo(0, 0);
+      const b = document.querySelector("body");
+      b.classList.add("locked");
 
       // generating teams
 
