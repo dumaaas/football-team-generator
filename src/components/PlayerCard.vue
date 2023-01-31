@@ -1,5 +1,4 @@
 <template>
-  <Tilt :options="{transition: true, max:25, speed: 400, glare: true, 'max-glare': 0}">
     <div id="card">
       <div class="wrapper" @click="pickPlayer(player)">
         <div v-if="player.picked" class="player-picked">✅</div>
@@ -98,16 +97,11 @@
         </div>
       </div>
     </div>
-  </Tilt>
 </template>
 
 <script>
-import Tilt from "vanilla-tilt-vue";
 
 export default {
-  components: {
-    Tilt,
-  },
   props: {
     player: Object,
   },

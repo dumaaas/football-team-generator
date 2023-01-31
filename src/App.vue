@@ -991,14 +991,34 @@ export default {
     },
     pickedPlayers(newVal) {
       const b = document.getElementById("players-wrapper");
-      if (newVal.length && newVal.length < 7) {
+      if (newVal.length && newVal.length < 7 && window.innerWidth >= 706) {
         b.classList.remove("mt-254");
         b.classList.remove("mt-104");
         b.classList.add("mt-176");
-      } else if (newVal.length && newVal.length >= 7) {
+      } else if (
+        newVal.length &&
+        newVal.length >= 7 &&
+        window.innerWidth >= 706
+      ) {
+        b.classList.remove("mt-254");
+        b.classList.remove("mt-104");
+        b.classList.add("mt-176");
+      } else if (
+        newVal.length &&
+        newVal.length >= 7 &&
+        window.innerWidth < 706
+      ) {
         b.classList.add("mt-254");
         b.classList.remove("mt-104");
         b.classList.remove("mt-176");
+      } else if (
+        newVal.length &&
+        newVal.length < 7 &&
+        window.innerWidth < 706
+      ) {
+        b.classList.remove("mt-254");
+        b.classList.remove("mt-104");
+        b.classList.add("mt-176");
       } else {
         b.classList.remove("mt-254");
         b.classList.add("mt-104");
