@@ -1,5 +1,6 @@
 <template>
   <div id="field">
+    <div @click="closeField()" class="close-field">X</div>
     <div class="teams-score">
       <div class="team-score team-yellow">
         <div class="team-ratings">
@@ -189,15 +190,27 @@
       </div>
     </div>
     <div v-if="!showTeams" class="odds">
-      <div :class="selected == '1' ? 'selected' : ''" class="odd-item" @click="openBettingModal(odds.oddOne, '1')">
+      <div
+        :class="selected == '1' ? 'selected' : ''"
+        class="odd-item"
+        @click="openBettingModal(odds.oddOne, '1')"
+      >
         <p>1</p>
         <p>{{ odds.oddOne }}</p>
       </div>
-      <div :class="selected == 'X' ? 'selected' : ''" class="odd-item" @click="openBettingModal(odds.oddDraw, 'X')">
+      <div
+        :class="selected == 'X' ? 'selected' : ''"
+        class="odd-item"
+        @click="openBettingModal(odds.oddDraw, 'X')"
+      >
         <p>X</p>
         <p>{{ odds.oddDraw }}</p>
       </div>
-      <div :class="selected == '2' ? 'selected' : ''" class="odd-item" @click="openBettingModal(odds.oddTwo, '2')">
+      <div
+        :class="selected == '2' ? 'selected' : ''"
+        class="odd-item"
+        @click="openBettingModal(odds.oddTwo, '2')"
+      >
         <p>2</p>
         <p>{{ odds.oddTwo }}</p>
       </div>
@@ -217,13 +230,16 @@ export default {
   data() {
     return {
       selected: null,
-    }
+    };
   },
   methods: {
     openBettingModal(odd, fix) {
       this.selected = fix;
       this.$emit("openBettingModal", odd, fix);
     },
+    closeField() {
+      this.$emit("closeField");
+    }
   },
 };
 </script>
@@ -330,6 +346,23 @@ export default {
   border: 1px solid #000;
   background: #e9cc74;
   color: #000;
+}
+
+.close-field {
+  position: absolute;
+  top: -20px;
+  right: -14px;
+  background: red;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  border: 1px solid #e9cc74;
+  background: #000;
+  color: #e9cc74;
+  cursor: pointer;
 }
 
 .field-outline {

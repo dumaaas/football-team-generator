@@ -30,9 +30,12 @@
           type="text"
           v-model="searchByName"
           placeholder="Search by name.."
-          style="margin-top: 10px;"
+          style="margin-top: 10px"
         />
-        <select v-model="filterSearch" style="margin-left: 8px; margin-top: 10px;">
+        <select
+          v-model="filterSearch"
+          style="margin-left: 8px; margin-top: 10px"
+        >
           <option selected value="random-filter">Random filter</option>
           <option value="overall-asc">Overall ASC</option>
           <option value="overall-desc">Overall DESC</option>
@@ -49,7 +52,7 @@
           <option value="physics-asc">Physics ASC</option>
           <option value="physics-desc">Physics DESC</option>
         </select>
-        <select v-model="teamSize" style="margin-left: 8px; margin-top: 10px;">
+        <select v-model="teamSize" style="margin-left: 8px; margin-top: 10px">
           <option value="3">Team size: 3</option>
           <option value="4">Team size: 4</option>
           <option value="5">Team size: 5</option>
@@ -77,6 +80,7 @@
       :players="players"
       :odds="odds"
       @openBettingModal="openBettingModal"
+      @closeField="closeField"
     />
     <BettingModal
       :showBettingModal="showBettingModal"
@@ -852,7 +856,11 @@ export default {
     },
     teamTermin(newVal) {
       localStorage.setItem("teamTermin", newVal);
+      this.playersCopy =
+        newVal == "andro" ? this.playersAndro : this.playersPejke;
       this.players = newVal == "andro" ? this.playersAndro : this.playersPejke;
+      this.pickedPlayers = [];
+      console.log("hej");
     },
     teamSize(newVal) {
       if (this.pickedPlayers.length > parseInt(newVal) * 2) {
@@ -984,9 +992,7 @@ export default {
   },
   mounted() {
     this.teamTermin =
-      localStorage.getItem("teamTermin") == "pejke"
-        ? "pejke"
-        : "andro";
+      localStorage.getItem("teamTermin") == "pejke" ? "pejke" : "andro";
 
     this.players =
       localStorage.getItem("teamTermin") == "pejke"
@@ -1005,6 +1011,11 @@ export default {
       this.fix = fix;
       this;
     },
+    closeField() {
+      const b = document.querySelector("body");
+      b.classList.remove("locked");
+      this.showField = false;
+    },
     closeBettingModal() {
       this.showBettingModal = false;
     },
@@ -1020,6 +1031,9 @@ export default {
       }
     },
     generateTeams(teamKind) {
+      window.scrollTo(0, 0);
+      const b = document.querySelector("body");
+      b.classList.add("locked");
       // validations
       if (this.pickedPlayers.length % 2 !== 0 && teamKind === undefined) {
         this.errorMsg = "Number of players must be even!";
@@ -1264,6 +1278,10 @@ export default {
   overflow-x: hidden;
 }
 
+body.locked {
+  overflow: hidden;
+}
+
 input,
 select {
   position: relative;
@@ -1280,6 +1298,12 @@ select {
 
 body {
   overflow-x: hidden;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 .overlay {
@@ -1373,6 +1397,7 @@ h1 {
   display: flex;
   gap: 20px;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 button {

@@ -1,106 +1,113 @@
 <template>
-  <div id="card">
-    <div class="wrapper" @click="pickPlayer(player)">
-      <div v-if="player.picked" class="player-picked">✅</div>
-      <!-- *** fut-player-card ***-->
-      <div class="fut-player-card" :class="player.picked ? 'picked' : ''">
-        <!-- Player Card Top-->
-        <div class="player-card-top">
-          <div class="player-master-info">
-            <div class="player-rating">
-              <span>{{
-                Math.round(
-                  (player.strength.pace +
-                    player.strength.shoot +
-                    player.strength.pass +
-                    player.strength.dribling +
-                    player.strength.defensive +
-                    player.strength.physics) /
-                    6
-                )
-              }}</span>
+  <Tilt :options="{transition: true, max:25, speed: 400, glare: true, 'max-glare': 0}">
+    <div id="card">
+      <div class="wrapper" @click="pickPlayer(player)">
+        <div v-if="player.picked" class="player-picked">✅</div>
+        <!-- *** fut-player-card ***-->
+        <div class="fut-player-card" :class="player.picked ? 'picked' : ''">
+          <!-- Player Card Top-->
+          <div class="player-card-top">
+            <div class="player-master-info">
+              <div class="player-rating">
+                <span>{{
+                  Math.round(
+                    (player.strength.pace +
+                      player.strength.shoot +
+                      player.strength.pass +
+                      player.strength.dribling +
+                      player.strength.defensive +
+                      player.strength.physics) /
+                      6
+                  )
+                }}</span>
+              </div>
+              <div class="player-position">
+                <span>{{ player.position }}</span>
+              </div>
+              <div class="player-nation">
+                <img
+                  :src="player.nationalityImg"
+                  alt="Argentina"
+                  draggable="false"
+                />
+              </div>
+              <div class="player-club">
+                <img :src="player.clubImg" alt="Barcelona" draggable="false" />
+              </div>
             </div>
-            <div class="player-position">
-              <span>{{ player.position }}</span>
-            </div>
-            <div class="player-nation">
+            <div class="player-picture">
               <img
-                :src="player.nationalityImg"
-                alt="Argentina"
+                :src="require(`../assets/${player.avatar}.png`)"
+                alt="Dumaaas"
                 draggable="false"
               />
-            </div>
-            <div class="player-club">
-              <img :src="player.clubImg" alt="Barcelona" draggable="false" />
-            </div>
-          </div>
-          <div class="player-picture">
-            <img
-              :src="require(`../assets/${player.avatar}.png`)"
-              alt="Dumaaas"
-              draggable="false"
-            />
-            <div class="player-extra">
-              <span>{{ player.height }}cm</span
-              ><span>{{ player.weight }}kg</span>
-            </div>
-          </div>
-        </div>
-        <!-- Player Card Bottom-->
-        <div class="player-card-bottom">
-          <div class="player-info">
-            <!-- Player Name-->
-            <div class="player-name">
-              <span>{{ player.name }}</span>
-            </div>
-            <!-- Player Features-->
-            <div class="player-features">
-              <div class="player-features-col">
-                <span>
-                  <div class="player-feature-value">
-                    {{ player.strength.pace }}
-                  </div>
-                  <div class="player-feature-title">PAC</div></span
-                ><span>
-                  <div class="player-feature-value">
-                    {{ player.strength.shoot }}
-                  </div>
-                  <div class="player-feature-title">SHO</div></span
-                ><span>
-                  <div class="player-feature-value">
-                    {{ player.strength.pass }}
-                  </div>
-                  <div class="player-feature-title">PAS</div></span
-                >
+              <div class="player-extra">
+                <span>{{ player.height }}cm</span
+                ><span>{{ player.weight }}kg</span>
               </div>
-              <div class="player-features-col">
-                <span>
-                  <div class="player-feature-value">
-                    {{ player.strength.dribling }}
-                  </div>
-                  <div class="player-feature-title">DRI</div></span
-                ><span>
-                  <div class="player-feature-value">
-                    {{ player.strength.defensive }}
-                  </div>
-                  <div class="player-feature-title">DEF</div></span
-                ><span>
-                  <div class="player-feature-value">
-                    {{ player.strength.physics }}
-                  </div>
-                  <div class="player-feature-title">PHY</div></span
-                >
+            </div>
+          </div>
+          <!-- Player Card Bottom-->
+          <div class="player-card-bottom">
+            <div class="player-info">
+              <!-- Player Name-->
+              <div class="player-name">
+                <span>{{ player.name }}</span>
+              </div>
+              <!-- Player Features-->
+              <div class="player-features">
+                <div class="player-features-col">
+                  <span>
+                    <div class="player-feature-value">
+                      {{ player.strength.pace }}
+                    </div>
+                    <div class="player-feature-title">PAC</div></span
+                  ><span>
+                    <div class="player-feature-value">
+                      {{ player.strength.shoot }}
+                    </div>
+                    <div class="player-feature-title">SHO</div></span
+                  ><span>
+                    <div class="player-feature-value">
+                      {{ player.strength.pass }}
+                    </div>
+                    <div class="player-feature-title">PAS</div></span
+                  >
+                </div>
+                <div class="player-features-col">
+                  <span>
+                    <div class="player-feature-value">
+                      {{ player.strength.dribling }}
+                    </div>
+                    <div class="player-feature-title">DRI</div></span
+                  ><span>
+                    <div class="player-feature-value">
+                      {{ player.strength.defensive }}
+                    </div>
+                    <div class="player-feature-title">DEF</div></span
+                  ><span>
+                    <div class="player-feature-value">
+                      {{ player.strength.physics }}
+                    </div>
+                    <div class="player-feature-title">PHY</div></span
+                  >
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </Tilt>
 </template>
 
 <script>
+import Tilt from "vanilla-tilt-vue";
+
 export default {
+  components: {
+    Tilt,
+  },
   props: {
     player: Object,
   },
