@@ -2,7 +2,6 @@
   <div id="field">
     <div class="teams-score">
       <div class="team-score team-yellow">
-        <p>Team Yellow</p>
         <div class="team-ratings">
           <p>
             {{
@@ -40,7 +39,6 @@
         </div>
       </div>
       <div class="team-score team-blue">
-        <p>Team Blue</p>
         <div class="team-ratings">
           <p>
             {{
@@ -191,15 +189,15 @@
       </div>
     </div>
     <div v-if="!showTeams" class="odds">
-      <div class="odd-item" @click="openBettingModal(odds.oddOne, '1')">
+      <div :class="selected == '1' ? 'selected' : ''" class="odd-item" @click="openBettingModal(odds.oddOne, '1')">
         <p>1</p>
         <p>{{ odds.oddOne }}</p>
       </div>
-      <div class="odd-item" @click="openBettingModal(odds.oddDraw, 'X')">
+      <div :class="selected == 'X' ? 'selected' : ''" class="odd-item" @click="openBettingModal(odds.oddDraw, 'X')">
         <p>X</p>
         <p>{{ odds.oddDraw }}</p>
       </div>
-      <div class="odd-item" @click="openBettingModal(odds.oddTwo, '2')">
+      <div :class="selected == '2' ? 'selected' : ''" class="odd-item" @click="openBettingModal(odds.oddTwo, '2')">
         <p>2</p>
         <p>{{ odds.oddTwo }}</p>
       </div>
@@ -216,8 +214,14 @@ export default {
     players: Array,
     odds: Object,
   },
+  data() {
+    return {
+      selected: null,
+    }
+  },
   methods: {
     openBettingModal(odd, fix) {
+      this.selected = fix;
       this.$emit("openBettingModal", odd, fix);
     },
   },
@@ -242,7 +246,7 @@ export default {
 
 .teams-score {
   position: absolute;
-  top: -70px;
+  top: -44px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -253,9 +257,8 @@ export default {
   background: #000;
   border: 1px solid #e9cc74;
   padding: 2px 8px;
-  color: #e9cc74
+  color: #e9cc74;
 }
-
 
 .team-blue {
   background: #000;
@@ -315,6 +318,12 @@ export default {
   justify-content: space-between;
   border-radius: 8px;
   transition: ease-in-out 0.3s;
+}
+
+.odd-item.selected {
+  border: 1px solid #000;
+  background: #e9cc74;
+  color: #000;
 }
 
 .odd-item:hover {

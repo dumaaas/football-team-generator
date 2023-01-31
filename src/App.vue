@@ -18,14 +18,21 @@
     </div>
 
     <div class="players-wrapper">
-      <h2>Pick players</h2>
+      <h2>
+        Pick players
+        <select v-model="teamTermin" style="margin-left: 8px">
+          <option value="andro">Termin: Andro</option>
+          <option value="pejke">Termin: Pejke</option>
+        </select>
+      </h2>
       <div class="">
         <input
           type="text"
           v-model="searchByName"
           placeholder="Search by name.."
+          style="margin-top: 10px;"
         />
-        <select v-model="filterSearch" style="margin-left: 8px">
+        <select v-model="filterSearch" style="margin-left: 8px; margin-top: 10px;">
           <option selected value="random-filter">Random filter</option>
           <option value="overall-asc">Overall ASC</option>
           <option value="overall-desc">Overall DESC</option>
@@ -42,7 +49,8 @@
           <option value="physics-asc">Physics ASC</option>
           <option value="physics-desc">Physics DESC</option>
         </select>
-        <select v-model="teamSize" style="margin-left: 8px">
+        <select v-model="teamSize" style="margin-left: 8px; margin-top: 10px;">
+          <option value="3">Team size: 3</option>
           <option value="4">Team size: 4</option>
           <option value="5">Team size: 5</option>
           <option value="6">Team size: 6</option>
@@ -57,6 +65,9 @@
         />
       </div>
       <button @click="generateTeams()">Generate teams</button>
+      <button style="margin-left: 10px" @click="generateTeams('random')">
+        Quick teams
+      </button>
     </div>
     <FieldModal
       v-if="showField"
@@ -73,7 +84,7 @@
       :fix="fix"
       @closeBettingModal="closeBettingModal()"
     />
-    <ErrorModal :msg="errorMsg" v-if="showErrorModal"/>
+    <ErrorModal :msg="errorMsg" />
     <div class="overlay" v-if="showField"></div>
   </div>
 </template>
@@ -101,321 +112,337 @@ export default {
       searchByName: "",
       filterSearch: "random-filter",
       teamSize: "5",
+      teamTermin: "andro",
       playersCopy: [],
-      errorMsg: '',
+      errorMsg: "",
       showErrorModal: false,
-      // players: [
-      //   {
-      //     id: 1,
-      //     name: "Marko Dumnić",
-      //     avatar: "duma",
-      //     overall: 97,
-      //     position: "ST",
-      //     nationalityImg:
-      //       "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
-      //     clubImg:
-      //       "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
-      //     height: "1.86",
-      //     weight: "74",
-      //     picked: false,
-      //     strength: {
-      //       pace: 80,
-      //       shoot: 71,
-      //       pass: 89,
-      //       dribling: 80,
-      //       physics: 52,
-      //       defensive: 73,
-      //     },
-      //   },
-      //   {
-      //     id: 2,
-      //     name: "Nemanja Pejaković",
-      //     avatar: "pejache",
-      //     overall: 98,
-      //     position: "CB",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg",
-      //     height: "1.86",
-      //     weight: "94",
-      //     picked: false,
-      //     strength: {
-      //       pace: 74,
-      //       shoot: 85,
-      //       pass: 88,
-      //       dribling: 82,
-      //       physics: 89,
-      //       defensive: 92,
-      //     },
-      //   },
-      //   {
-      //     id: 3,
-      //     name: "Miloš Jovović",
-      //     avatar: "ckemi",
-      //     overall: 99,
-      //     position: "RW",
-      //     nationalityImg:
-      //       "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
-      //     clubImg:
-      //       "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
-      //     height: "1.86",
-      //     weight: "76",
-      //     picked: false,
-      //     strength: {
-      //       pace: 86,
-      //       shoot: 83,
-      //       pass: 81,
-      //       dribling: 82,
-      //       physics: 63,
-      //       defensive: 72,
-      //     },
-      //   },
-      //   {
-      //     id: 4,
-      //     name: "Strahinja Kovačević",
-      //     avatar: "capo",
-      //     overall: 91,
-      //     position: "CB",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/1/1f/Logo_FC_Bayern_M%C3%BCnchen_%282002%E2%80%932017%29.svg",
-      //     height: "1.90",
-      //     weight: "110",
-      //     picked: false,
-      //     strength: {
-      //       pace: 72,
-      //       shoot: 79,
-      //       pass: 81,
-      //       dribling: 73,
-      //       physics: 92,
-      //       defensive: 91,
-      //     },
-      //   },
-      //   {
-      //     id: 5,
-      //     name: "Vojin Jovović",
-      //     avatar: "vojo",
-      //     overall: 99,
-      //     position: "AMF",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/1/1f/Logo_FC_Bayern_M%C3%BCnchen_%282002%E2%80%932017%29.svg",
-      //     height: "1.85",
-      //     weight: "85",
-      //     picked: false,
-      //     strength: {
-      //       pace: 83,
-      //       shoot: 92,
-      //       pass: 89,
-      //       dribling: 91,
-      //       physics: 82,
-      //       defensive: 56,
-      //     },
-      //   },
-      //   {
-      //     id: 6,
-      //     name: "Stefan Tomović",
-      //     avatar: "toma1",
-      //     overall: "99",
-      //     position: "DMF",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg",
-      //     height: "1.78",
-      //     weight: "98",
-      //     picked: false,
-      //     strength: {
-      //       pace: 72,
-      //       shoot: 89,
-      //       pass: 79,
-      //       dribling: 71,
-      //       physics: 92,
-      //       defensive: 86,
-      //     },
-      //   },
-      //   {
-      //     id: 7,
-      //     name: "Ivan Vuksanović",
-      //     avatar: "smit",
-      //     overall: 99,
-      //     position: "LB",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/f/ff/Flag_of_Serbia.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/5/5d/Logo_FC_Red_Star_Belgrade.svg",
-      //     height: "1.86",
-      //     weight: "96",
-      //     picked: false,
-      //     strength: {
-      //       pace: 81,
-      //       shoot: 91,
-      //       pass: 80,
-      //       dribling: 84,
-      //       physics: 92,
-      //       defensive: 91,
-      //     },
-      //   },
-      //   {
-      //     id: 8,
-      //     name: "Ilija Dumnić",
-      //     avatar: "mladji",
-      //     overall: 99,
-      //     position: "CMF",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/sco/5/56/Real_Madrid_CF.svg",
-      //     height: "1.84",
-      //     weight: "89",
-      //     picked: false,
-      //     strength: {
-      //       pace: 74,
-      //       shoot: 93,
-      //       pass: 83,
-      //       dribling: 78,
-      //       physics: 83,
-      //       defensive: 79,
-      //     },
-      //   },
-      //   {
-      //     id: 9,
-      //     name: "Srđan Bajović",
-      //     avatar: "srki",
-      //     overall: 99,
-      //     position: "RB",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
-      //     height: "1.80",
-      //     weight: "90",
-      //     picked: false,
-      //     strength: {
-      //       pace: 84,
-      //       shoot: 82,
-      //       pass: 78,
-      //       dribling: 83,
-      //       physics: 89,
-      //       defensive: 89,
-      //     },
-      //   },
-      //   {
-      //     id: 10,
-      //     name: "Dejan Đurđevac",
-      //     avatar: "dejo",
-      //     overall: 99,
-      //     position: "FW",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
-      //     height: "1.92",
-      //     weight: "90",
-      //     picked: false,
-      //     strength: {
-      //       pace: 89,
-      //       shoot: 91,
-      //       pass: 82,
-      //       dribling: 86,
-      //       physics: 84,
-      //       defensive: 81,
-      //     },
-      //   },
-      //   {
-      //     id: 11,
-      //     name: "Kure Arizabalaga",
-      //     avatar: "kure",
-      //     overall: 99,
-      //     position: "GK",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
-      //     height: "1.92",
-      //     weight: "90",
-      //     picked: false,
-      //     strength: {
-      //       pace: 72,
-      //       shoot: 79,
-      //       pass: 81,
-      //       dribling: 73,
-      //       physics: 92,
-      //       defensive: 56,
-      //     },
-      //   },
-      //   {
-      //     id: 12,
-      //     name: "Branko Marković",
-      //     avatar: "banjac",
-      //     overall: 99,
-      //     position: "RB",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
-      //     height: "1.80",
-      //     weight: "90",
-      //     picked: false,
-      //     strength: {
-      //       pace: 79,
-      //       shoot: 71,
-      //       pass: 73,
-      //       dribling: 70,
-      //       physics: 81,
-      //       defensive: 73,
-      //     },
-      //   },
-      //   {
-      //     id: 13,
-      //     name: "Stefan Terić",
-      //     avatar: "tera",
-      //     overall: 99,
-      //     position: "CB",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
-      //     height: "1.80",
-      //     weight: "90",
-      //     picked: false,
-      //     strength: {
-      //       pace: 74,
-      //       shoot: 82,
-      //       pass: 81,
-      //       dribling: 84,
-      //       physics: 85,
-      //       defensive: 90,
-      //     },
-      //   },
-      //   {
-      //     id: 14,
-      //     name: "Peđa Knežević",
-      //     avatar: "djape",
-      //     overall: 99,
-      //     position: "GK",
-      //     nationalityImg:
-      //       "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
-      //     clubImg:
-      //       "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
-      //     height: "1.92",
-      //     weight: "90",
-      //     picked: false,
-      //     strength: {
-      //       pace: 72,
-      //       shoot: 79,
-      //       pass: 81,
-      //       dribling: 73,
-      //       physics: 92,
-      //       offensive: 33,
-      //       defensive: 91,
-      //     },
-      //   },
-      // ],
-      players: [
+      players: [],
+      playersPejke: [
+        {
+          id: 1,
+          name: "Marko Dumnić",
+          avatar: "duma",
+          nick: "duma",
+          overall: 97,
+          position: "ST",
+          nationalityImg:
+            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+          clubImg:
+            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+          height: "1.86",
+          weight: "74",
+          picked: false,
+          strength: {
+            pace: 80,
+            shoot: 71,
+            pass: 89,
+            dribling: 80,
+            physics: 52,
+            defensive: 73,
+          },
+        },
+        {
+          id: 2,
+          name: "Nemanja Pejaković",
+          avatar: "pejache",
+          nick: "pejache",
+          overall: 98,
+          position: "CB",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg",
+          height: "1.86",
+          weight: "94",
+          picked: false,
+          strength: {
+            pace: 74,
+            shoot: 85,
+            pass: 88,
+            dribling: 82,
+            physics: 89,
+            defensive: 92,
+          },
+        },
+        {
+          id: 3,
+          name: "Miloš Jovović",
+          avatar: "ckemi",
+          nick: "ckemi",
+          overall: 99,
+          position: "RW",
+          nationalityImg:
+            "https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg",
+          clubImg:
+            "https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg",
+          height: "1.86",
+          weight: "76",
+          picked: false,
+          strength: {
+            pace: 86,
+            shoot: 83,
+            pass: 81,
+            dribling: 82,
+            physics: 63,
+            defensive: 72,
+          },
+        },
+        {
+          id: 4,
+          name: "Strahinja Kovačević",
+          avatar: "capo",
+          nick: "capo",
+          overall: 91,
+          position: "CB",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/commons/1/1f/Logo_FC_Bayern_M%C3%BCnchen_%282002%E2%80%932017%29.svg",
+          height: "1.90",
+          weight: "110",
+          picked: false,
+          strength: {
+            pace: 72,
+            shoot: 79,
+            pass: 81,
+            dribling: 73,
+            physics: 92,
+            defensive: 91,
+          },
+        },
+        {
+          id: 5,
+          name: "Vojin Jovović",
+          avatar: "vojo",
+          nick: "vojo",
+          overall: 99,
+          position: "AMF",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/commons/1/1f/Logo_FC_Bayern_M%C3%BCnchen_%282002%E2%80%932017%29.svg",
+          height: "1.85",
+          weight: "85",
+          picked: false,
+          strength: {
+            pace: 83,
+            shoot: 92,
+            pass: 89,
+            dribling: 91,
+            physics: 82,
+            defensive: 56,
+          },
+        },
+        {
+          id: 6,
+          name: "Stefan Tomović",
+          avatar: "toma1",
+          nick: "toma",
+          overall: "99",
+          position: "DMF",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/0/03/Flag_of_Italy.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg",
+          height: "1.78",
+          weight: "98",
+          picked: false,
+          strength: {
+            pace: 72,
+            shoot: 89,
+            pass: 79,
+            dribling: 71,
+            physics: 92,
+            defensive: 86,
+          },
+        },
+        {
+          id: 7,
+          name: "Ivan Vuksanović",
+          avatar: "smit",
+          nick: "smit",
+          overall: 99,
+          position: "LB",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/f/ff/Flag_of_Serbia.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/commons/5/5d/Logo_FC_Red_Star_Belgrade.svg",
+          height: "1.86",
+          weight: "96",
+          picked: false,
+          strength: {
+            pace: 81,
+            shoot: 91,
+            pass: 80,
+            dribling: 84,
+            physics: 92,
+            defensive: 91,
+          },
+        },
+        {
+          id: 8,
+          name: "Ilija Dumnić",
+          avatar: "mladji",
+          nick: "mladji",
+          overall: 99,
+          position: "CMF",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/sco/5/56/Real_Madrid_CF.svg",
+          height: "1.84",
+          weight: "89",
+          picked: false,
+          strength: {
+            pace: 74,
+            shoot: 93,
+            pass: 83,
+            dribling: 78,
+            physics: 83,
+            defensive: 79,
+          },
+        },
+        {
+          id: 9,
+          name: "Srđan Bajović",
+          avatar: "srki",
+          nick: "srki",
+          overall: 99,
+          position: "RB",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+          height: "1.80",
+          weight: "90",
+          picked: false,
+          strength: {
+            pace: 84,
+            shoot: 82,
+            pass: 78,
+            dribling: 83,
+            physics: 89,
+            defensive: 89,
+          },
+        },
+        {
+          id: 10,
+          name: "Dejan Đurđevac",
+          avatar: "dejo",
+          nick: "dejo",
+          overall: 99,
+          position: "FW",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+          height: "1.92",
+          weight: "90",
+          picked: false,
+          strength: {
+            pace: 89,
+            shoot: 91,
+            pass: 82,
+            dribling: 86,
+            physics: 84,
+            defensive: 81,
+          },
+        },
+        {
+          id: 11,
+          name: "Kure Arizabalaga",
+          avatar: "kure",
+          nick: "kure",
+          overall: 99,
+          position: "GK",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+          height: "1.92",
+          weight: "90",
+          picked: false,
+          strength: {
+            pace: 72,
+            shoot: 79,
+            pass: 81,
+            dribling: 73,
+            physics: 92,
+            defensive: 56,
+          },
+        },
+        {
+          id: 12,
+          name: "Branko Marković",
+          avatar: "banjac",
+          nick: "banjac",
+          overall: 99,
+          position: "RB",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+          height: "1.80",
+          weight: "90",
+          picked: false,
+          strength: {
+            pace: 79,
+            shoot: 71,
+            pass: 73,
+            dribling: 70,
+            physics: 81,
+            defensive: 73,
+          },
+        },
+        {
+          id: 13,
+          name: "Stefan Terić",
+          avatar: "tera",
+          nick: "tera",
+          overall: 99,
+          position: "CB",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+          height: "1.80",
+          weight: "90",
+          picked: false,
+          strength: {
+            pace: 74,
+            shoot: 82,
+            pass: 81,
+            dribling: 84,
+            physics: 85,
+            defensive: 90,
+          },
+        },
+        {
+          id: 14,
+          name: "Peđa Knežević",
+          avatar: "djape",
+          nick: "djape",
+          overall: 99,
+          position: "GK",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+          height: "1.92",
+          weight: "90",
+          picked: false,
+          strength: {
+            pace: 72,
+            shoot: 79,
+            pass: 81,
+            dribling: 73,
+            physics: 92,
+            offensive: 33,
+            defensive: 91,
+          },
+        },
+      ],
+      playersAndro: [
         {
           id: 1,
           name: "Marko Dumnić",
@@ -823,8 +850,16 @@ export default {
 
       this.players = results;
     },
+    teamTermin(newVal) {
+      localStorage.setItem("teamTermin", newVal);
+      this.players = newVal == "andro" ? this.playersAndro : this.playersPejke;
+    },
     teamSize(newVal) {
       if (this.pickedPlayers.length > parseInt(newVal) * 2) {
+        this.errorMsg = "You picked too many players for this team size!";
+        setTimeout(() => {
+          this.errorMsg = "";
+        }, 5000);
         this.pickedPlayers = [];
         this.players.forEach((obj) => {
           if (obj.picked) {
@@ -948,6 +983,16 @@ export default {
     },
   },
   mounted() {
+    this.teamTermin =
+      localStorage.getItem("teamTermin") == "pejke"
+        ? "pejke"
+        : "andro";
+
+    this.players =
+      localStorage.getItem("teamTermin") == "pejke"
+        ? this.playersPejke
+        : this.playersAndro;
+
     this.playersCopy = this.players;
     this.players.sort(() => {
       return Math.random() - 0.5;
@@ -964,307 +1009,110 @@ export default {
       this.showBettingModal = false;
     },
     pickPlayer(value) {
-      if (this.pickedPlayers.length > this.teamSize * 2) {
+      if (!value.picked && this.pickedPlayers.length + 1 > this.teamSize * 2) {
         this.errorMsg = "You already picked maximum nubmer of players.";
-        this.showErrorModal = true;
         setTimeout(() => {
-          this.showErrorModal = false;
-        }, 2000);
+          this.errorMsg = "";
+        }, 5000);
+      } else {
+        let objIndex = this.players.findIndex((obj) => obj.id == value.id);
+        this.players[objIndex].picked = !this.players[objIndex].picked;
+      }
+    },
+    generateTeams(teamKind) {
+      // validations
+      if (this.pickedPlayers.length % 2 !== 0 && teamKind === undefined) {
+        this.errorMsg = "Number of players must be even!";
+        setTimeout(() => {
+          this.errorMsg = "";
+        }, 5000);
         return;
       }
-      let objIndex = this.players.findIndex((obj) => obj.id == value.id);
-      this.players[objIndex].picked = !this.players[objIndex].picked;
-    },
-    generateTeams() {
+      if (
+        this.pickedPlayers.length !== this.teamSize * 2 &&
+        teamKind === undefined
+      ) {
+        this.errorMsg =
+          "You have to pick exactly " + this.teamSize * 2 + " players!";
+        setTimeout(() => {
+          this.errorMsg = "";
+        }, 5000);
+        return;
+      }
+
+      // generating teams
+
+      // show team field
       this.showField = true;
       this.showTeams = true;
       setTimeout(() => {
         this.showTeams = false;
       }, 2250);
-      const goalkeepers = this.players.filter((obj) => {
-        return obj.position === "GK" && obj.picked == true;
-      });
 
+      // find picked players and sort them randomly
       var results = [];
-
-      if (goalkeepers.length == 2) {
-        this.teamOne.push(goalkeepers[0]);
-        this.teamTwo.push(goalkeepers[1]);
-
-        results = this.players
-          .filter((obj) => {
-            return obj.picked === true && obj.position !== "GK";
-          })
-          .sort(() => {
-            return Math.random() - 0.5;
-          });
-        let flag = true;
-        let firstTeam = [];
-        let secondTeam = [];
-        for (let i = 0; i < results.length; i++) {
-          if (flag) {
-            firstTeam.push(results[i]);
-            flag = false;
-          } else {
-            secondTeam.push(results[i]);
-            flag = true;
-          }
-        }
-        let countPlayers = 0;
-        let lastStrongerTeam = undefined;
-        while (countPlayers < results.length / 2) {
-          let pairOfTwo = this.findClosestPair(firstTeam, secondTeam);
-          // this.teamOne.push(pairOfTwo[0]);
-          // this.teamTwo.push(pairOfTwo[1]);
-          let findItemOne = firstTeam.findIndex(
-            (item) => item.id === pairOfTwo[0].id
-          );
-
-          let firstStrength =
-            pairOfTwo[0].strength.pace +
-            pairOfTwo[0].strength.shoot +
-            pairOfTwo[0].strength.pass +
-            pairOfTwo[0].strength.dribling +
-            pairOfTwo[0].strength.defensive +
-            pairOfTwo[0].strength.physics;
-
-          let secondStrength =
-            pairOfTwo[1].strength.pace +
-            pairOfTwo[1].strength.shoot +
-            pairOfTwo[1].strength.pass +
-            pairOfTwo[1].strength.dribling +
-            pairOfTwo[1].strength.defensive +
-            pairOfTwo[1].strength.physics;
-
-          console.log(firstStrength, secondStrength, "snage");
-
-          if (firstStrength > secondStrength) {
-            if (lastStrongerTeam == "first") {
-              this.teamTwo.push(pairOfTwo[0]);
-              this.teamOne.push(pairOfTwo[1]);
-            } else if (lastStrongerTeam == "second") {
-              this.teamOne.push(pairOfTwo[0]);
-              this.Two.push(pairOfTwo[1]);
-            } else {
-              this.teamTwo.push(pairOfTwo[1]);
-              this.teamOne.push(pairOfTwo[0]);
-            }
-          } else if (firstStrength < secondStrength) {
-            if (lastStrongerTeam == "first") {
-              this.teamTwo.push(pairOfTwo[1]);
-              this.teamOne.push(pairOfTwo[0]);
-            } else if (lastStrongerTeam == "second") {
-              this.teamOne.push(pairOfTwo[1]);
-              this.Two.push(pairOfTwo[0]);
-            } else {
-              this.teamTwo.push(pairOfTwo[1]);
-              this.teamOne.push(pairOfTwo[0]);
-            }
-          } else {
-            this.teamTwo.push(pairOfTwo[1]);
-            this.teamOne.push(pairOfTwo[0]);
-          }
-
-          console.log(
-            pairOfTwo[0].strength.pace +
-              pairOfTwo[0].strength.shoot +
-              pairOfTwo[0].strength.pass +
-              pairOfTwo[0].strength.dribling +
-              pairOfTwo[0].strength.defensive +
-              pairOfTwo[0].strength.physics,
-            "TIM JEDAN"
-          );
-
-          console.log(
-            pairOfTwo[1].strength.pace +
-              pairOfTwo[1].strength.shoot +
-              pairOfTwo[1].strength.pass +
-              pairOfTwo[1].strength.dribling +
-              pairOfTwo[1].strength.defensive +
-              pairOfTwo[1].strength.physics,
-            "TIM DVA"
-          );
-          firstTeam.splice(findItemOne, 1);
-          var findItemTwo = secondTeam.findIndex(
-            (item) => item.id === pairOfTwo[1].id
-          );
-          secondTeam.splice(findItemTwo, 1);
-          countPlayers++;
-        }
-
-        var teamOneSum = 0;
-        var teamTwoSum = 0;
-
-        this.teamOne.forEach((item) => {
-          teamOneSum +=
-            item.strength.pace +
-            item.strength.shoot +
-            item.strength.pass +
-            item.strength.dribling +
-            item.strength.defensive +
-            item.strength.physics;
+      if (teamKind === undefined) {
+        results = this.pickedPlayers.sort(() => {
+          return Math.random() - 0.5;
         });
-
-        this.teamTwo.forEach((item) => {
-          teamTwoSum +=
-            item.strength.pace +
-            item.strength.shoot +
-            item.strength.pass +
-            item.strength.dribling +
-            item.strength.defensive +
-            item.strength.physics;
-        });
-
-        console.log(teamOneSum, "prviTimSum pa drugiTimSum", teamTwoSum);
       } else {
         results = this.players
-          .filter((obj) => {
-            return obj.picked === true;
-          })
           .sort(() => {
             return Math.random() - 0.5;
-          });
-        var [prvi, drugi] = this.divideIntoTeams(results);
-        console.log(prvi, "prvi igrac", drugi);
-        this.teamOne = prvi;
-        this.teamTwo = drugi;
-        // console.log(prvi, "prvi tim - drugi tim", drugi);
-        // let flag = true;
-        // let firstTeam = [];
-        // let secondTeam = [];
-        // for (let i = 0; i < results.length; i++) {
-        //   if (flag) {
-        //     firstTeam.push(results[i]);
-        //     flag = false;
-        //   } else {
-        //     secondTeam.push(results[i]);
-        //     flag = true;
-        //   }
-        // }
-        // let countPlayers = 0;
-        // let lastStrongerTeam = undefined;
-        // while (countPlayers < results.length / 2) {
-        //   let pairOfTwo = this.findClosestPair(firstTeam, secondTeam);
-        //   // this.teamOne.push(pairOfTwo[0]);
-        //   // this.teamTwo.push(pairOfTwo[1]);
-        //   let findItemOne = firstTeam.findIndex(
-        //     (item) => item.id === pairOfTwo[0].id
-        //   );
-
-        //   console.log(pairOfTwo, "parDava");
-
-        //   let firstStrength =
-        //     pairOfTwo[0].strength.pace +
-        //     pairOfTwo[0].strength.shoot +
-        //     pairOfTwo[0].strength.pass +
-        //     pairOfTwo[0].strength.dribling +
-        //     pairOfTwo[0].strength.defensive +
-        //     pairOfTwo[0].strength.physics;
-
-        //   let secondStrength =
-        //     pairOfTwo[1].strength.pace +
-        //     pairOfTwo[1].strength.shoot +
-        //     pairOfTwo[1].strength.pass +
-        //     pairOfTwo[1].strength.dribling +
-        //     pairOfTwo[1].strength.defensive +
-        //     pairOfTwo[1].strength.physics;
-
-        //   console.log(firstStrength, secondStrength, "snage");
-
-        //   if (firstStrength > secondStrength) {
-        //     if (lastStrongerTeam == "first") {
-        //       this.teamTwo.push(pairOfTwo[0]);
-        //       this.teamOne.push(pairOfTwo[1]);
-        //       this.lastStrongerTeam == "second";
-        //     } else if (lastStrongerTeam == "second") {
-        //       this.teamOne.push(pairOfTwo[0]);
-        //       this.Two.push(pairOfTwo[1]);
-        //       this.lastStrongerTeam == "first";
-        //     } else {
-        //       this.teamTwo.push(pairOfTwo[1]);
-        //       this.teamOne.push(pairOfTwo[0]);
-        //     }
-        //   } else if (firstStrength < secondStrength) {
-        //     if (lastStrongerTeam == "first") {
-        //       this.teamTwo.push(pairOfTwo[1]);
-        //       this.teamOne.push(pairOfTwo[0]);
-        //       this.lastStrongerTeam == "second";
-        //     } else if (lastStrongerTeam == "second") {
-        //       this.teamOne.push(pairOfTwo[1]);
-        //       this.Two.push(pairOfTwo[0]);
-        //       this.lastStrongerTeam == "first";
-        //     } else {
-        //       this.teamTwo.push(pairOfTwo[1]);
-        //       this.teamOne.push(pairOfTwo[0]);
-        //     }
-        //   } else {
-        //     this.teamTwo.push(pairOfTwo[1]);
-        //     this.teamOne.push(pairOfTwo[0]);
-        //   }
-
-        //   console.log(
-        //     pairOfTwo[0].strength.pace +
-        //       pairOfTwo[0].strength.shoot +
-        //       pairOfTwo[0].strength.pass +
-        //       pairOfTwo[0].strength.dribling +
-        //       pairOfTwo[0].strength.defensive +
-        //       pairOfTwo[0].strength.physics,
-        //     "TIM JEDAN"
-        //   );
-
-        //   console.log(
-        //     pairOfTwo[1].strength.pace +
-        //       pairOfTwo[1].strength.shoot +
-        //       pairOfTwo[1].strength.pass +
-        //       pairOfTwo[1].strength.dribling +
-        //       pairOfTwo[1].strength.defensive +
-        //       pairOfTwo[1].strength.physics,
-        //     "TIM DVA"
-        //   );
-        //   firstTeam.splice(findItemOne, 1);
-        //   let findItemTwo = secondTeam.findIndex(
-        //     (item) => item.id === pairOfTwo[1].id
-        //   );
-        //   secondTeam.splice(findItemTwo, 1);
-        //   countPlayers++;
-        // }
-
-        let teamOneSum = 0;
-        let teamTwoSum = 0;
-
-        this.teamOne.forEach((item) => {
-          teamOneSum +=
-            item.strength.pace +
-            item.strength.shoot +
-            item.strength.pass +
-            item.strength.dribling +
-            item.strength.defensive +
-            item.strength.physics;
-        });
-
-        this.teamTwo.forEach((item) => {
-          teamTwoSum +=
-            item.strength.pace +
-            item.strength.shoot +
-            item.strength.pass +
-            item.strength.dribling +
-            item.strength.defensive +
-            item.strength.physics;
-        });
-
-        // console.log(teamOneSum, "prviTimSum pa drugiTimSum", teamTwoSum);
-
-        var [oddOne, oddTwo, oddDraw] = this.izracunajKvote(
-          teamOneSum,
-          teamTwoSum
+          })
+          .slice(0, parseInt(this.teamSize * 2));
+        console.log(
+          results,
+          "hehejhejhejhe",
+          this.players,
+          "team size",
+          this.teamSize
         );
-
-        this.odds = {
-          oddOne: oddOne,
-          oddTwo: oddTwo,
-          oddDraw: oddDraw,
-        };
       }
+
+      // divide picked players into two equal teams
+      var [prvi, drugi] = this.divideIntoTeams(results);
+      this.teamOne = prvi;
+      this.teamTwo = drugi;
+
+      // get teamOne and teamTwo strength score
+      var [teamOneSum, teamTwoSum] = this.getTeamSums();
+      // counts odds
+      var [oddOne, oddTwo, oddDraw] = this.izracunajKvote(
+        teamOneSum,
+        teamTwoSum
+      );
+      // set odds
+      this.odds = {
+        oddOne: oddOne,
+        oddTwo: oddTwo,
+        oddDraw: oddDraw,
+      };
+    },
+    getTeamSums() {
+      let teamOneSum = 0;
+      let teamTwoSum = 0;
+
+      this.teamOne.forEach((item) => {
+        teamOneSum +=
+          item.strength.pace +
+          item.strength.shoot +
+          item.strength.pass +
+          item.strength.dribling +
+          item.strength.defensive +
+          item.strength.physics;
+      });
+
+      this.teamTwo.forEach((item) => {
+        teamTwoSum +=
+          item.strength.pace +
+          item.strength.shoot +
+          item.strength.pass +
+          item.strength.dribling +
+          item.strength.defensive +
+          item.strength.physics;
+      });
+      return [teamOneSum, teamTwoSum];
     },
     findClosestPair(firstTeam, secondTeam) {
       let closestPair;
@@ -1452,6 +1300,12 @@ h1 {
   font-size: 44px;
 }
 
+@media only screen and (max-width: 520px) {
+  h1 {
+    font-size: 32px;
+  }
+}
+
 .header {
   background: #110f08;
   padding: 20px 0;
@@ -1503,7 +1357,10 @@ h1 {
   font-size: 32px;
   border-bottom: 1px solid #e9cc74;
   padding-bottom: 10px;
-  margin: 10px auto;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: auto;
   color: #e9cc74;
   width: 200px;
   text-align: center;
