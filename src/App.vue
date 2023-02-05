@@ -98,7 +98,7 @@ import FieldModal from "./components/FieldModal.vue";
 import PlayerCard from "./components/PlayerCard.vue";
 import BettingModal from "./components/BettingModal.vue";
 import ErrorModal from "./components/ErrorModal.vue";
-
+import test from "@/helpers";
 export default {
   name: "App",
   components: {
@@ -171,6 +171,7 @@ export default {
         {
           id: 3,
           name: "Miloš Jovović",
+          injured: true,
           avatar: "ckemi",
           nick: "ckemi",
           overall: 99,
@@ -241,6 +242,7 @@ export default {
           id: 6,
           name: "Stefan Tomović",
           avatar: "toma1",
+          injured: true,
           nick: "toma",
           overall: "99",
           position: "DMF",
@@ -378,7 +380,7 @@ export default {
         {
           id: 12,
           name: "Branko Marković",
-          avatar: "banjac",
+          avatar: "banjac1",
           nick: "banjac",
           overall: 99,
           position: "RB",
@@ -1026,6 +1028,7 @@ export default {
       }
     },
   },
+
   mounted() {
     this.teamTermin =
       localStorage.getItem("teamTermin") == "pejke" ? "pejke" : "andro";
@@ -1067,6 +1070,10 @@ export default {
       }
     },
     generateTeams(teamKind) {
+      // eslint-disable-next-line no-undef
+      test.foo();
+      // eslint-disable-next-line no-undef, no-unused-vars
+      var marko = stefan;
       // validations
       if (this.pickedPlayers.length % 2 !== 0 && teamKind === undefined) {
         this.errorMsg = "Number of players must be even!";

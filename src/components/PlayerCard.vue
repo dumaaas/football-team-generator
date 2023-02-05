@@ -1,106 +1,130 @@
 <template>
-    <div id="card">
-      <div class="wrapper" @click="pickPlayer(player)">
-        <div v-if="player.picked" class="player-picked">✅</div>
-        <!-- *** fut-player-card ***-->
-        <div class="fut-player-card" :class="player.picked ? 'picked' : ''">
-          <!-- Player Card Top-->
-          <div class="player-card-top">
-            <div class="player-master-info">
-              <div class="player-rating">
-                <span>{{
-                  Math.round(
-                    (player.strength.pace +
-                      player.strength.shoot +
-                      player.strength.pass +
-                      player.strength.dribling +
-                      player.strength.defensive +
-                      player.strength.physics) /
-                      6
-                  )
-                }}</span>
-              </div>
-              <div class="player-position">
-                <span>{{ player.position }}</span>
-              </div>
-              <div class="player-nation">
-                <img
-                  :src="player.nationalityImg"
-                  alt="Argentina"
-                  draggable="false"
-                />
-              </div>
-              <div class="player-club">
-                <img :src="player.clubImg" alt="Barcelona" draggable="false" />
-              </div>
+  <div id="card">
+    <div class="wrapper" @click="pickPlayer(player)">
+      <div v-if="player.picked" class="player-picked">✅</div>
+      <!-- *** fut-player-card ***-->
+      <div class="fut-player-card" :class="player.picked ? 'picked' : ''">
+        <!-- Player Card Top-->
+        <div class="player-card-top">
+          <div class="player-master-info">
+            <div v-if="player.injured" class="">
+              <svg
+                style="
+                  color: red;
+                  width: 35px;
+                  height: 35px;
+                  background: white;
+                  border-radius: 50%;
+                  position: absolute;
+                  left: 45px;
+                  top: 37px;
+                "
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-plus"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+                  fill="red"
+                ></path>
+              </svg>
             </div>
-            <div class="player-picture">
+            <div class="player-rating">
+              <span>{{
+                Math.round(
+                  (player.strength.pace +
+                    player.strength.shoot +
+                    player.strength.pass +
+                    player.strength.dribling +
+                    player.strength.defensive +
+                    player.strength.physics) /
+                    6
+                )
+              }}</span>
+            </div>
+            <div class="player-position">
+              <span>{{ player.position }}</span>
+            </div>
+            <div class="player-nation">
               <img
-                :src="require(`../assets/${player.avatar}.png`)"
-                alt="Dumaaas"
+                :src="player.nationalityImg"
+                alt="Argentina"
                 draggable="false"
               />
-              <div class="player-extra">
-                <span>{{ player.height }}cm</span
-                ><span>{{ player.weight }}kg</span>
-              </div>
+            </div>
+            <div class="player-club">
+              <img :src="player.clubImg" alt="Barcelona" draggable="false" />
             </div>
           </div>
-          <!-- Player Card Bottom-->
-          <div class="player-card-bottom">
-            <div class="player-info">
-              <!-- Player Name-->
-              <div class="player-name">
-                <span>{{ player.name }}</span>
+          <div class="player-picture">
+            <img
+              :src="require(`../assets/${player.avatar}.png`)"
+              alt="Dumaaas"
+              draggable="false"
+            />
+            <div class="player-extra">
+              <span>{{ player.height }}cm</span
+              ><span>{{ player.weight }}kg</span>
+            </div>
+          </div>
+        </div>
+        <!-- Player Card Bottom-->
+        <div class="player-card-bottom">
+          <div class="player-info">
+            <!-- Player Name-->
+            <div class="player-name">
+              <span>{{ player.name }}</span>
+            </div>
+            <!-- Player Features-->
+            <div class="player-features">
+              <div class="player-features-col">
+                <span>
+                  <div class="player-feature-value">
+                    {{ player.strength.pace }}
+                  </div>
+                  <div class="player-feature-title">PAC</div></span
+                ><span>
+                  <div class="player-feature-value">
+                    {{ player.strength.shoot }}
+                  </div>
+                  <div class="player-feature-title">SHO</div></span
+                ><span>
+                  <div class="player-feature-value">
+                    {{ player.strength.pass }}
+                  </div>
+                  <div class="player-feature-title">PAS</div></span
+                >
               </div>
-              <!-- Player Features-->
-              <div class="player-features">
-                <div class="player-features-col">
-                  <span>
-                    <div class="player-feature-value">
-                      {{ player.strength.pace }}
-                    </div>
-                    <div class="player-feature-title">PAC</div></span
-                  ><span>
-                    <div class="player-feature-value">
-                      {{ player.strength.shoot }}
-                    </div>
-                    <div class="player-feature-title">SHO</div></span
-                  ><span>
-                    <div class="player-feature-value">
-                      {{ player.strength.pass }}
-                    </div>
-                    <div class="player-feature-title">PAS</div></span
-                  >
-                </div>
-                <div class="player-features-col">
-                  <span>
-                    <div class="player-feature-value">
-                      {{ player.strength.dribling }}
-                    </div>
-                    <div class="player-feature-title">DRI</div></span
-                  ><span>
-                    <div class="player-feature-value">
-                      {{ player.strength.defensive }}
-                    </div>
-                    <div class="player-feature-title">DEF</div></span
-                  ><span>
-                    <div class="player-feature-value">
-                      {{ player.strength.physics }}
-                    </div>
-                    <div class="player-feature-title">PHY</div></span
-                  >
-                </div>
+              <div class="player-features-col">
+                <span>
+                  <div class="player-feature-value">
+                    {{ player.strength.dribling }}
+                  </div>
+                  <div class="player-feature-title">DRI</div></span
+                ><span>
+                  <div class="player-feature-value">
+                    {{ player.strength.defensive }}
+                  </div>
+                  <div class="player-feature-title">DEF</div></span
+                ><span>
+                  <div class="player-feature-value">
+                    {{ player.strength.physics }}
+                  </div>
+                  <div class="player-feature-title">PHY</div></span
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
-
 export default {
   props: {
     player: Object,

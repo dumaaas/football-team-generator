@@ -14,7 +14,7 @@
         <p>Correct result</p>
       </div>
       <div class="bet-slip-right">
-        <p>{{fix}}</p>
+        <p>{{marko.pjesma}}</p>
         <span> {{odd}} </span>
       </div>
     </div>
