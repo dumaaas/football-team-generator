@@ -380,7 +380,7 @@ export default {
         {
           id: 12,
           name: "Branko Marković",
-          avatar: "banjac1",
+          avatar: "banjac2",
           nick: "banjac",
           overall: 99,
           position: "RB",
