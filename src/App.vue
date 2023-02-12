@@ -98,7 +98,6 @@ import FieldModal from "./components/FieldModal.vue";
 import PlayerCard from "./components/PlayerCard.vue";
 import BettingModal from "./components/BettingModal.vue";
 import ErrorModal from "./components/ErrorModal.vue";
-import test from "@/helpers";
 export default {
   name: "App",
   components: {
@@ -137,12 +136,12 @@ export default {
           weight: "74",
           picked: false,
           strength: {
-            pace: 80,
-            shoot: 71,
-            pass: 89,
-            dribling: 80,
-            physics: 52,
-            defensive: 73,
+            dribling: 77,
+            shoot: 64,
+            pass: 78,
+            pace: 76,
+            defensive: 67,
+            physics: 60,
           },
         },
         {
@@ -160,12 +159,12 @@ export default {
           weight: "94",
           picked: false,
           strength: {
-            pace: 74,
-            shoot: 85,
-            pass: 88,
-            dribling: 82,
-            physics: 89,
-            defensive: 92,
+            dribling: 78,
+            shoot: 76,
+            pass: 80,
+            pace: 68,
+            defensive: 63,
+            physics: 87,
           },
         },
         {
@@ -184,12 +183,12 @@ export default {
           weight: "76",
           picked: false,
           strength: {
-            pace: 86,
-            shoot: 83,
-            pass: 81,
-            dribling: 82,
-            physics: 63,
-            defensive: 72,
+            dribling: 76,
+            shoot: 79,
+            pass: 76,
+            pace: 80,
+            defensive: 59,
+            physics: 78,
           },
         },
         {
@@ -230,12 +229,12 @@ export default {
           weight: "85",
           picked: false,
           strength: {
-            pace: 83,
-            shoot: 92,
-            pass: 89,
-            dribling: 91,
-            physics: 82,
-            defensive: 56,
+            dribling: 87,
+            shoot: 84,
+            pass: 83,
+            pace: 80,
+            defensive: 71,
+            physics: 81,
           },
         },
         {
@@ -277,12 +276,12 @@ export default {
           weight: "96",
           picked: false,
           strength: {
-            pace: 81,
-            shoot: 91,
-            pass: 80,
-            dribling: 84,
-            physics: 92,
-            defensive: 91,
+            dribling: 64,
+            shoot: 94,
+            pass: 77,
+            pace: 67,
+            defensive: 89,
+            physics: 83,
           },
         },
         {
@@ -300,12 +299,12 @@ export default {
           weight: "89",
           picked: false,
           strength: {
-            pace: 74,
-            shoot: 93,
-            pass: 83,
-            dribling: 78,
-            physics: 83,
-            defensive: 79,
+            dribling: 83,
+            shoot: 84,
+            pass: 81,
+            pace: 69,
+            defensive: 58,
+            physics: 79,
           },
         },
         {
@@ -323,12 +322,12 @@ export default {
           weight: "90",
           picked: false,
           strength: {
-            pace: 84,
-            shoot: 82,
-            pass: 78,
-            dribling: 83,
-            physics: 89,
-            defensive: 89,
+            dribling: 63,
+            shoot: 79,
+            pass: 76,
+            pace: 81,
+            defensive: 84,
+            physics: 90,
           },
         },
         {
@@ -415,12 +414,12 @@ export default {
           weight: "90",
           picked: false,
           strength: {
-            pace: 74,
-            shoot: 82,
-            pass: 81,
-            dribling: 84,
-            physics: 85,
-            defensive: 90,
+            dribling: 78,
+            shoot: 56,
+            pass: 73,
+            pace: 62,
+            defensive: 88,
+            physics: 81,
           },
         },
         {
@@ -445,6 +444,52 @@ export default {
             physics: 92,
             offensive: 33,
             defensive: 91,
+          },
+        },
+        {
+          id: 15,
+          name: "Šule Đukanović",
+          avatar: "sule",
+          nick: "šule",
+          overall: 99,
+          position: "CMF",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+          height: "1.84",
+          weight: "92",
+          picked: false,
+          strength: {
+            dribling: 80,
+            shoot: 81,
+            pass: 90,
+            pace: 67,
+            defensive: 88,
+            physics: 84,
+          },
+        },
+        {
+          id: 16,
+          name: "Ivan Mićunović",
+          avatar: "cune",
+          nick: "ćune",
+          overall: 99,
+          position: "DMF",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+          height: "1.90",
+          weight: "82",
+          picked: false,
+          strength: {
+            dribling: 81,
+            shoot: 81,
+            pass: 83,
+            pace: 88,
+            defensive: 79,
+            physics: 93,
           },
         },
       ],
@@ -1071,9 +1116,7 @@ export default {
     },
     generateTeams(teamKind) {
       // eslint-disable-next-line no-undef
-      test.foo();
       // eslint-disable-next-line no-undef, no-unused-vars
-      var marko = stefan;
       // validations
       if (this.pickedPlayers.length % 2 !== 0 && teamKind === undefined) {
         this.errorMsg = "Number of players must be even!";
