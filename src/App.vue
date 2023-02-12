@@ -59,14 +59,14 @@
           <option value="6">Team size: 6</option>
         </select>
       </div>
-      <div class="players">
+      <transition-group name="playersList" tag="div" class="players">
         <PlayerCard
           v-for="player in players"
           :key="player.id"
           :player="player"
           @pickPlayer="pickPlayer"
         />
-      </div>
+      </transition-group>
       <button @click="generateTeams()">Generate teams</button>
       <button style="margin-left: 10px" @click="generateTeams('random')">
         Quick teams
@@ -330,29 +330,29 @@ export default {
             physics: 90,
           },
         },
-        // {
-        //   id: 10,
-        //   name: "Dejan Đurđevac",
-        //   avatar: "dejo",
-        //   nick: "dejo",
-        //   overall: 99,
-        //   position: "FW",
-        //   nationalityImg:
-        //     "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
-        //   clubImg:
-        //     "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
-        //   height: "1.92",
-        //   weight: "90",
-        //   picked: false,
-        //   strength: {
-        //     pace: 89,
-        //     shoot: 91,
-        //     pass: 82,
-        //     dribling: 86,
-        //     physics: 84,
-        //     defensive: 81,
-        //   },
-        // },
+        {
+          id: 10,
+          name: "Dejan Đurđevac",
+          avatar: "dejo",
+          nick: "dejo",
+          overall: 99,
+          position: "FW",
+          nationalityImg:
+            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+          clubImg:
+            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+          height: "1.92",
+          weight: "90",
+          picked: false,
+          strength: {
+            pace: 92,
+            shoot: 85,
+            pass: 71,
+            dribling: 81,
+            physics: 90,
+            defensive: 75,
+          },
+        },
         // {
         //   id: 11,
         //   name: "Kure Arizabalaga",
@@ -376,29 +376,29 @@ export default {
         //     defensive: 56,
         //   },
         // },
-        {
-          id: 12,
-          name: "Branko Marković",
-          avatar: "banjac2",
-          nick: "banjac",
-          overall: 99,
-          position: "RB",
-          nationalityImg:
-            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
-          clubImg:
-            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
-          height: "1.80",
-          weight: "90",
-          picked: false,
-          strength: {
-            pace: 79,
-            shoot: 71,
-            pass: 73,
-            dribling: 70,
-            physics: 81,
-            defensive: 73,
-          },
-        },
+        // {
+        //   id: 12,
+        //   name: "Branko Marković",
+        //   avatar: "banjac2",
+        //   nick: "banjac",
+        //   overall: 99,
+        //   position: "RB",
+        //   nationalityImg:
+        //     "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+        //   clubImg:
+        //     "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+        //   height: "1.80",
+        //   weight: "90",
+        //   picked: false,
+        //   strength: {
+        //     pace: 79,
+        //     shoot: 71,
+        //     pass: 73,
+        //     dribling: 70,
+        //     physics: 81,
+        //     defensive: 73,
+        //   },
+        // },
         {
           id: 13,
           name: "Stefan Terić",
@@ -469,29 +469,29 @@ export default {
             physics: 84,
           },
         },
-        {
-          id: 16,
-          name: "Ivan Mićunović",
-          avatar: "cune",
-          nick: "ćune",
-          overall: 99,
-          position: "DMF",
-          nationalityImg:
-            "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
-          clubImg:
-            "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
-          height: "1.90",
-          weight: "82",
-          picked: false,
-          strength: {
-            dribling: 81,
-            shoot: 81,
-            pass: 83,
-            pace: 88,
-            defensive: 79,
-            physics: 93,
-          },
-        },
+        // {
+        //   id: 16,
+        //   name: "Ivan Mićunović",
+        //   avatar: "cune",
+        //   nick: "ćune",
+        //   overall: 99,
+        //   position: "DMF",
+        //   nationalityImg:
+        //     "https://upload.wikimedia.org/wikipedia/commons/6/64/Flag_of_Montenegro.svg",
+        //   clubImg:
+        //     "https://upload.wikimedia.org/wikipedia/en/3/3c/FK_Sutjeska_updated_logo_%281920%29.png",
+        //   height: "1.90",
+        //   weight: "82",
+        //   picked: false,
+        //   strength: {
+        //     dribling: 81,
+        //     shoot: 81,
+        //     pass: 83,
+        //     pace: 88,
+        //     defensive: 79,
+        //     physics: 93,
+        //   },
+        // },
       ],
       playersAndro: [
         {
@@ -1500,6 +1500,10 @@ h1 {
   gap: 20px;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.playersList-move {
+  transition: all 1s;
 }
 
 button {
